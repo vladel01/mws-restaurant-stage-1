@@ -149,9 +149,27 @@ class DBHelper {
   /**
    * Restaurant image URL.
    */
-  static imageUrlForRestaurant(restaurant) {
-    return (`/img/${restaurant.photograph}`);
+  static imageUrlForRestaurant(restaurant) {  // using small image as default
+    return (`/img/${restaurant.photograph}-400_small.jpg`);
   }
+  static imageUrlForRestaurant2x(restaurant) {
+    return (`/img/${restaurant.photograph}-400_small_2x.jpg 2x`);
+  }
+  static imageUrlForRestaurantMedium(restaurant) {
+    return (`/img/${restaurant.photograph}-650_medium.jpg, /img/${restaurant.photograph}-650_medium_2x.jpg 2x`);
+  }
+  static imageUrlForRestaurantLarge(restaurant) {
+    return (`/img/${restaurant.photograph}-800_large.jpg, /img/${restaurant.photograph}-800_large_2x.jpg 2x`);
+  }
+
+
+  // static responsiveImageUrlForRestaurant(restaurant) {
+  //     const displays = [800, 650, 360];
+  //     for display of displays {
+  //
+  //     }
+  //   return (`/img/${restaurant.photograph}`);
+  // }
 
   /**
    * Map marker for a restaurant.
