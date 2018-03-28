@@ -162,15 +162,6 @@ class DBHelper {
     return (`/img/${restaurant.photograph}-800_large.jpg, /img/${restaurant.photograph}-800_large_2x.jpg 2x`);
   }
 
-
-  // static responsiveImageUrlForRestaurant(restaurant) {
-  //     const displays = [800, 650, 360];
-  //     for display of displays {
-  //
-  //     }
-  //   return (`/img/${restaurant.photograph}`);
-  // }
-
   /**
    * Map marker for a restaurant.
    */
