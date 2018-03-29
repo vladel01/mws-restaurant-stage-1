@@ -53,11 +53,8 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
     name.innerHTML = restaurant.name;
 
     const address = document.getElementById('restaurant-address');
-    address.innerHTML = restaurant.address;
+    address.innerHTML = '<i class="fas fa-map-marker-alt"></i>' + restaurant.address;
 
-    // const image = document.getElementById('restaurant-img');
-    // image.className = 'restaurant-img'
-    // image.src = DBHelper.imageUrlForRestaurant(restaurant);
     const picture = document.getElementById('restaurant-img');
     picture.className = 'restaurant-img';
 

@@ -80,6 +80,20 @@ section {
 	width: 1200px;
 	margin: 0 auto;
 }
+
+.grid-line {
+	display: flex;
+	flex-wrap: wrap;
+	margin-left: -15px;
+	margin-right: -15px;
+}
+
+.grid-column {
+	box-sizing: border-box;
+	padding-left: 15px;
+	padding-right: 15px;
+}
+
 #footer {
 	background-color: #444;
 	color: #aaa;
@@ -89,6 +103,7 @@ section {
 	text-align: center;
 	text-transform: uppercase;
 }
+
 /* ====================== Navigation ====================== */
 nav {
 	padding-top: 20px;
@@ -216,14 +231,13 @@ nav h1 a {
 }
 
 #restaurants-list .restaurant-img {
-	background-color: #ccc;
 	display: block;
 	margin: 0;
 }
 
 #restaurants-list .restaurant-img img {
-	min-height: 248px;
-	min-width: 100%;
+	max-width: 100%;
+	width: 100%;
 }
 
 #restaurants-list li h1 {
@@ -263,24 +277,15 @@ nav h1 a {
 }
 
 .inside #map-container {
-	background: blue none repeat scroll 0 0;
-	height: 87%;
-	position: fixed;
-	right: 0;
-	top: 80px;
-	width: 50%;
+
 }
 
 .inside #map {
-	background-color: #ccc;
-	height: 100%;
-	width: 100%;
+
 }
 
 .inside #footer {
-	bottom: 0;
-	position: absolute;
-	width: 50%;
+
 }
 
 #restaurant-name {
@@ -292,41 +297,61 @@ nav h1 a {
 	margin: 15px 0 30px;
 	text-transform: uppercase;
 	line-height: 1.1;
+	text-align: center;
 }
 
 #restaurant-img {
-	width: 90%;
+	display: block;
+}
+
+#restaurant-img img {
+	width: 100%;
 }
 
 #restaurant-address {
-	font-size: 12pt;
+	font-size: 1.2em;
 	margin: 10px 0px;
+	text-align: center;
+	display: block;
+	color: #333;
+}
+
+#restaurant-address:hover,
+#restaurant-address:focus {
+	color: prange
+}
+
+#restaurant-address i {
+	margin-right: 10px;
 }
 
 #restaurant-cuisine {
 	background-color: #333;
 	color: #ddd;
-	font-size: 12pt;
+	font-size: 1.2em;
 	font-weight: 300;
 	letter-spacing: 10px;
 	margin: 0 0 20px;
 	padding: 2px 0;
 	text-align: center;
 	text-transform: uppercase;
-	width: 90%;
 }
 
 #restaurant-container,
 #reviews-container {
 	border-bottom: 1px solid #d9d9d9;
 	border-top: 1px solid #fff;
-	padding: 140px 40px 30px;
-	width: 50%;
+	padding: 140px 0 30px;
 }
 
 #reviews-container {
-	padding: 30px 40px 80px;
+	padding: 30px 0 80px;
 }
+
+#restaurant-container .grid-column {
+	width: 50%;
+}
+
 
 #reviews-container h2 {
 	color: #f58500;
