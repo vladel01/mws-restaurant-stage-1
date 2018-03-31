@@ -32,7 +32,7 @@
     <!-- End header -->
 
     <!-- Beginning main -->
-    <main id="maincontent">
+    <main id="maincontent" class="clearfix">
         <!-- Beginning restaurant -->
         <section id="restaurant-container" class="content-wrapper">
             <h1 id="restaurant-name"></h1>
@@ -44,7 +44,9 @@
 
                 <div class="grid-column">
                     <p id="restaurant-cuisine"></p>
-                    <a href="#map" id="restaurant-address"></a>
+                    <a href="#restaurant-map" id="restaurant-address"></a>
+
+                    <h3 class="restaurant-schedule">Opened hours</h3>
                     <table id="restaurant-hours"></table>
                 </div>
             </div>
@@ -58,7 +60,8 @@
         <!-- End reviews -->
 
         <!-- Beginning map -->
-        <section id="map-container">
+        <section id="map-container" class="content-wrapper">
+            <h2 id="restaurant-map">Location</h2>
             <div id="map"></div>
         </section>
         <!-- End map -->

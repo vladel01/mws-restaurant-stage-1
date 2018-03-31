@@ -17,6 +17,8 @@
         font-size: 15px;
     }
 
+    /* Main page */
+
     #restaurants-list li {
         width: calc((100% - 15px) / 2);
     }
@@ -40,6 +42,23 @@
         width: 100%;
     }
 
+
+    /* Restaurant page */
+    #reviews-container {
+        padding-bottom: 30px;
+    }
+
+    #reviews-list li {
+        width: 100%;
+        box-sizing: border-box;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    /* Restaurant page */
+    #restaurant-container .grid-column {
+        width: 100%;
+    }
 }
 
 @media screen and (max-width: 650px) {
@@ -47,11 +66,17 @@
         font-size: 16px;
     }
 
+    /* Main page */
+
     #restaurants-list li {
         width: 100%;
         margin-right: 0;
     }
+    
     #restaurants-list li:nth-of-type(3n) {
         margin-right: 0;
     }
+
+
+
 }

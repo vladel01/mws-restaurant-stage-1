@@ -133,18 +133,35 @@ fillReviewsHTML = (reviews = self.restaurant.reviews) => {
 createReviewHTML = (review) => {
     const li = document.createElement('li');
     const name = document.createElement('p');
-    name.innerHTML = review.name;
+    name.innerHTML = '<strong>Author: </strong>' + review.name;
     li.appendChild(name);
 
     const date = document.createElement('p');
-    date.innerHTML = review.date;
+    date.innerHTML = '<strong>Date: </strong>' + review.date;
     li.appendChild(date);
 
     const rating = document.createElement('p');
-    rating.innerHTML = `Rating: ${review.rating}`;
+
+    const ratingStarsClass = 'color-' + review.rating;
+    const ratingStars = document.createElement('span');
+    ratingStars.classList.add('star-rate');
+    ratingStars.classList.add(ratingStarsClass);
+    ratingStars.innerHTML = '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>';
+
+    // const staricon = document.querySelectorAll('.star-rate');
+    // staricon.forEach(icon => {
+    //     icon.classList.add('fas'); // Font Awesome icon class
+    //     icon.classList.add('fa-star'); // Font Awesome star icon class
+    // });
+
+    rating.innerHTML = '<strong>Rating: </strong>';
+    rating.appendChild(ratingStars);
+
+
     li.appendChild(rating);
 
     const comments = document.createElement('p');
+    comments.classList.add('review-comment');
     comments.innerHTML = review.comments;
     li.appendChild(comments);
 
