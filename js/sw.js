@@ -1,7 +1,5 @@
 var myCacheNames = 'mws-restaurant-v3';
 
-// importScripts('cache-polyfill.js');
-
 self.addEventListener('install', function(event) {
     event.waitUntil(
         caches.open(myCacheNames).then(function(cache) {
@@ -38,12 +36,11 @@ self.addEventListener('activate', function(event) {
     );
 });
 
+// The following solution for fetch, is inspired from https://jakearchibald.com/2014/offline-cookbook/
 self.addEventListener('fetch', function(event) {
-    var requestUrl = new URL(event.request.url);
-
-     event.respondWith(
+    event.respondWith(
         caches.open(myCacheNames).then(function(cache) {
-            return cache.match(event.request).then(function (response) {
+            return cache.match(event.request).then(function(response) {
                 return response || fetch(event.request).then(function(response) {
                     cache.put(event.request, response.clone());
                     return response;
