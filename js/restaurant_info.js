@@ -160,12 +160,6 @@ createReviewHTML = (review) => {
     ratingStars.classList.add(ratingStarsClass);
     ratingStars.innerHTML = '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>';
 
-    // const staricon = document.querySelectorAll('.star-rate');
-    // staricon.forEach(icon => {
-    //     icon.classList.add('fas'); // Font Awesome icon class
-    //     icon.classList.add('fa-star'); // Font Awesome star icon class
-    // });
-
     rating.innerHTML = '<strong>Rating: </strong>';
     rating.appendChild(ratingStars);
 

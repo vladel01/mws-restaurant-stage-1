@@ -143,11 +143,6 @@ createRestaurantHTML = (restaurant) => {
     picture.className = 'restaurant-img';
     li.append(picture);
 
-    // const sourceLarge = document.createElement('source');
-    // sourceLarge.media = '(min-width: 800px)';
-    // sourceLarge.srcset = DBHelper.imageUrlForRestaurantLarge(restaurant);
-    // picture.append(sourceLarge);
-
     const sourceMedium = document.createElement('source');
     sourceMedium.media = '(min-width: 400px)';
     sourceMedium.srcset = DBHelper.imageUrlForRestaurantMedium(restaurant);
