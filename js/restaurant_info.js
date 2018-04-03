@@ -52,10 +52,11 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
     const name = document.getElementById('restaurant-name');
     name.innerHTML = restaurant.name;
     name.setAttribute('role', 'heading');
-    name.setAttribute('tabindex', '0');
 
     const address = document.getElementById('restaurant-address');
     address.innerHTML = '<i class="fas fa-map-marker-alt"></i>' + restaurant.address;
+    address.setAttribute('role', 'contentinfo');
+    address.setAttribute('aria-label', 'Address' + restaurant.address);
 
     const picture = document.getElementById('restaurant-img');
     picture.className = 'restaurant-img';
@@ -86,6 +87,13 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
     }
     // fill reviews
     fillReviewsHTML();
+
+    const hoursH3 = document.getElementById('restaurant-short-schedule');
+    if (restaurant.operating_hours.Saturday == restaurant.operating_hours.Sunday) {
+        hoursH3.innerHTML = 'Opening times on Weekdays ' + restaurant.operating_hours.Monday + ' and on Weekends ' + restaurant.operating_hours.Saturday;
+    }else {
+        hoursH3.innerHTML = 'Opening times on Weekdays ' + restaurant.operating_hours.Monday + ' and on Weekends: Saturday ' + restaurant.operating_hours.Saturday + ', and Sunday ' + restaurant.operating_hours.Sunday;
+    }
 }
 
 /**
@@ -96,7 +104,7 @@ fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hours) => 
 
     for (let key in operatingHours) {
         const row = document.createElement('tr');
-        row.setAttribute('tabindex', '0');
+        //row.setAttribute('tabindex', '0');
         row.setAttribute('role', 'row');
 
         const day = document.createElement('td');

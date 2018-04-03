@@ -369,6 +369,21 @@ nav h1 a {
 	margin: 20px 0 10px;
 }
 
+#restaurant-short-schedule {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	opacity: 0;
+}
+
+#restaurant-short-schedule:focus {
+	position: relative;
+	width: auto;
+	height: auto;
+	opacity: 1;
+}
+
 #restaurant-hours {
 	width: 100%;
 	border-collapse: collapse;

@@ -19,12 +19,12 @@
     </header>
 
     <main id="maincontent" class="clearfix">
-        <section id="map-container" role="section">
+        <section id="map-container" role="contentinfo" aria-label="Restaurants map">
             <div id="map" role="application"></div>
         </section>
 
-        <section role="section">
-            <div id="filters" aria-labelledby="filtersHead">
+        <section role="contentinfo" aria-label="Restaurants">
+            <div id="filters" role="contentinfo" aria-labelledby="filtersHead">
                 <div class="content-wrapper">
                     <div class="filter-options clearfix">
                         <h2 id="filtersHead" tabindex="-1">Filter Results</h2>
@@ -38,7 +38,7 @@
                 </div>
             </div>
 
-            <div class="content-wrapper" role="section">
+            <div class="content-wrapper" role="contentinfo" aria-label="Restaurants list">
                 <ul id="restaurants-list"></ul>
             </div>
         </section>
@@ -54,7 +54,7 @@
         }
     </script>
 
-    <footer id="footer" role="section">
+    <footer id="footer" role="contentinfo" aria-label="Footer">
         Copyright (c) 2017 <a href="/"><strong>Restaurant Reviews</strong></a> All Rights Reserved.
     </footer>
 
