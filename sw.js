@@ -1,18 +1,18 @@
-var myCacheNames = 'mws-restaurant-v3';
+var myCacheNames = 'mws-restaurant-v4';
 
 self.addEventListener('install', function(event) {
     event.waitUntil(
         caches.open(myCacheNames).then(function(cache) {
             return cache.addAll([
                 '/',
-                '/index.html',
-                '/restaurant.html',
-                '/css/styles.css',
-                '/css/responsive.css',
-                'dbhelper.js',
-                'main.js',
-                'restaurant_info.js',
-                '/data/restaurants.json',
+                'index.html',
+                'restaurant.html',
+                'css/styles.css',
+                'css/responsive.css',
+                'js/dbhelper.js',
+                'js/main.js',
+                'js/restaurant_info.js',
+                'data/restaurants.json',
                 //'/img',
                 'https://use.fontawesome.com/releases/v5.0.9/css/all.css'
             ]);
