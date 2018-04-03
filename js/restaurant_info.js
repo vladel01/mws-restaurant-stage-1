@@ -51,6 +51,8 @@ fetchRestaurantFromURL = (callback) => {
 fillRestaurantHTML = (restaurant = self.restaurant) => {
     const name = document.getElementById('restaurant-name');
     name.innerHTML = restaurant.name;
+    name.setAttribute('role', 'heading');
+    name.setAttribute('tabindex', '0');
 
     const address = document.getElementById('restaurant-address');
     address.innerHTML = '<i class="fas fa-map-marker-alt"></i>' + restaurant.address;
@@ -76,6 +78,7 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
 
     const cuisine = document.getElementById('restaurant-cuisine');
     cuisine.innerHTML = restaurant.cuisine_type;
+    cuisine.setAttribute('aria-label', 'Cuisine ' + restaurant.cuisine_type);
 
     // fill operating hours
     if (restaurant.operating_hours) {
@@ -90,8 +93,11 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
  */
 fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hours) => {
     const hours = document.getElementById('restaurant-hours');
+
     for (let key in operatingHours) {
         const row = document.createElement('tr');
+        row.setAttribute('tabindex', '0');
+        row.setAttribute('role', 'row');
 
         const day = document.createElement('td');
         day.innerHTML = key;
@@ -121,6 +127,8 @@ fillReviewsHTML = (reviews = self.restaurant.reviews) => {
         return;
     }
     const ul = document.getElementById('reviews-list');
+    ul.setAttribute('role', 'list');
+    ul.setAttribute('aria-label', title.innerHTML);
     reviews.forEach(review => {
         ul.appendChild(createReviewHTML(review));
     });
@@ -132,6 +140,9 @@ fillReviewsHTML = (reviews = self.restaurant.reviews) => {
  */
 createReviewHTML = (review) => {
     const li = document.createElement('li');
+    li.setAttribute('role', 'listitem');
+    li.setAttribute('tabindex', '0');
+
     const name = document.createElement('p');
     name.innerHTML = '<strong>Author: </strong>' + review.name;
     li.appendChild(name);
@@ -145,6 +156,7 @@ createReviewHTML = (review) => {
     const ratingStarsClass = 'color-' + review.rating;
     const ratingStars = document.createElement('span');
     ratingStars.classList.add('star-rate');
+    ratingStars.setAttribute('aria-label', review.rating + ' stars');
     ratingStars.classList.add(ratingStarsClass);
     ratingStars.innerHTML = '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>';
 
@@ -175,6 +187,7 @@ fillBreadcrumb = (restaurant=self.restaurant) => {
     const breadcrumb = document.getElementById('breadcrumb');
     const li = document.createElement('li');
     li.innerHTML = restaurant.name;
+     li.setAttribute('aria-current', 'page');
     breadcrumb.appendChild(li);
 }
 

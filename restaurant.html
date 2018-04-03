@@ -23,7 +23,7 @@
         <!-- End nav -->
 
         <!-- Beginning breadcrumb -->
-        <ul id="breadcrumb" >
+        <ul id="breadcrumb" role="navigation">
           <li><a href="/">Home</a></li>
         </ul>
         <!-- End breadcrumb -->
@@ -34,7 +34,7 @@
     <!-- Beginning main -->
     <main id="maincontent" class="clearfix">
         <!-- Beginning restaurant -->
-        <section id="restaurant-container" class="content-wrapper">
+        <section id="restaurant-container" class="content-wrapper" role="section">
             <h1 id="restaurant-name"></h1>
 
             <div class="grid-line">
@@ -43,10 +43,10 @@
                 </div>
 
                 <div class="grid-column">
-                    <p id="restaurant-cuisine"></p>
+                    <p id="restaurant-cuisine" tabindex="0"></p>
                     <a href="#restaurant-map" id="restaurant-address"></a>
 
-                    <h3 class="restaurant-schedule">Opened hours</h3>
+                    <h3 class="restaurant-schedule" tabindex="0">Opened hours</h3>
                     <table id="restaurant-hours"></table>
                 </div>
             </div>
@@ -54,22 +54,22 @@
         <!-- end restaurant -->
 
         <!-- Beginning reviews -->
-        <section id="reviews-container" class="content-wrapper">
+        <section id="reviews-container" class="content-wrapper" role="section">
             <ul id="reviews-list"></ul>
         </section>
         <!-- End reviews -->
 
         <!-- Beginning map -->
-        <section id="map-container" class="content-wrapper">
+        <section id="map-container" class="content-wrapper" aria-labelledby="restaurant-map" role="section">
             <h2 id="restaurant-map">Location</h2>
-            <div id="map"></div>
+            <div id="map" role="application"></div>
         </section>
         <!-- End map -->
     </main>
     <!-- End main -->
 
     <!-- Beginning footer -->
-    <footer id="footer">
+    <footer id="footer" role="section">
         Copyright (c) 2017 <a href="/"><strong>Restaurant Reviews</strong></a> All Rights Reserved.
     </footer>
     <!-- End footer -->

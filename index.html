@@ -15,19 +15,19 @@
         <nav class="clearfix" role="navigation">
             <h1><a href="/">Restaurant Reviews</a></h1>
         </nav>
-        <a href="#filters" class="skip-link">Jump to filter</a>
+        <a href="#filtersHead" class="skip-link">Jump to filter</a>
     </header>
 
     <main id="maincontent" class="clearfix">
-        <section id="map-container">
-            <div id="map" role="presentation"></div>
+        <section id="map-container" role="section">
+            <div id="map" role="application"></div>
         </section>
 
-        <section>
-            <div id="filters">
+        <section role="section">
+            <div id="filters" aria-labelledby="filtersHead">
                 <div class="content-wrapper">
                     <div class="filter-options clearfix">
-                        <h2>Filter Results</h2>
+                        <h2 id="filtersHead" tabindex="-1">Filter Results</h2>
                         <select id="neighborhoods-select" name="neighborhoods" onchange="updateRestaurants()" aria-label="Select neighborhood">
                             <option value="all">All Neighborhoods</option>
                         </select>
@@ -38,7 +38,7 @@
                 </div>
             </div>
 
-            <div class="content-wrapper">
+            <div class="content-wrapper" role="section">
                 <ul id="restaurants-list"></ul>
             </div>
         </section>
@@ -54,7 +54,7 @@
         }
     </script>
 
-    <footer id="footer">
+    <footer id="footer" role="section">
         Copyright (c) 2017 <a href="/"><strong>Restaurant Reviews</strong></a> All Rights Reserved.
     </footer>
 
