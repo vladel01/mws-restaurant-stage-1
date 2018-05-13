@@ -5,8 +5,10 @@
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
     <meta charset="utf-8">
     <link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css" />
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/responsive.css">
+
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
+
     <title>Restaurant Reviews</title>
 </head>
 
@@ -44,6 +46,9 @@
         </section>
     </main>
 
+    <footer id="footer" role="contentinfo" aria-label="Footer">
+        Copyright (c) 2017 <a href="/"><strong>Restaurant Reviews</strong></a> All Rights Reserved.
+    </footer>
 
     <script type="application/javascript" charset="utf-8" src="js/idb.js"></script>
     <script type="application/javascript" charset="utf-8" src="js/manage-data.js"></script>
@@ -57,9 +62,23 @@
         }
     </script>
 
-    <footer id="footer" role="contentinfo" aria-label="Footer">
-        Copyright (c) 2017 <a href="/"><strong>Restaurant Reviews</strong></a> All Rights Reserved.
-    </footer>
+    <script type="text/javascript">
+        /* First CSS File */
+        var giftofspeed = document.createElement('link');
+        giftofspeed.rel = 'stylesheet';
+        giftofspeed.href = 'css/styles.css';
+        giftofspeed.type = 'text/css';
+        var godefer = document.getElementsByTagName('link')[0];
+        godefer.parentNode.insertBefore(giftofspeed, godefer);
+
+        /* Second CSS File */
+        var giftofspeed2 = document.createElement('link');
+        giftofspeed2.rel = 'stylesheet';
+        giftofspeed2.href = 'css/responsive.css';
+        giftofspeed2.type = 'text/css';
+        var godefer2 = document.getElementsByTagName('link')[0];
+        godefer2.parentNode.insertBefore(giftofspeed2, godefer2);
+    </script>
 
 </body>
 

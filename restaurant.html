@@ -87,6 +87,12 @@
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB7sOnBPE6R1zGtgxxplZuGwHumFlCQink&libraries=places&callback=initMap"></script>
     <!-- End scripts -->
 
+        <script type="text/javascript">
+            if ('serviceWorker' in navigator) {
+              navigator.serviceWorker.register('sw.js');
+            }
+        </script>
+
 </body>
 
 </html>

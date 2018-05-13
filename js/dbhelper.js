@@ -5,105 +5,12 @@
 class DBHelper {
 
     /**
-        * Database URL.
-        * Change this to restaurants.json file location on your server.
-    */
-    // static get DATABASE_URL() {
-    //     const port = 1337 // Change this to your server port
-    //     return `http://localhost:${port}/data/restaurants`;
-    // }
-
-    /**
         * Fetch all restaurants.
         */
-    // static fetchRestaurants(callback) {
-    //     let xhr = new XMLHttpRequest();
-    //         xhr.open('GET', DBHelper.DATABASE_URL);
-    //         xhr.onload = () => {
-    //             if (xhr.status === 200) { // Got a success response from server!
-    //                 const json = JSON.parse(xhr.responseText);
-    //                 const restaurants = json.restaurants;
-    //                 callback(null, restaurants);
-    //             } else { // Oops!. Got an error from server.
-    //                 const error = (`Request failed. Returned status of ${xhr.status}`);
-    //                 callback(error, null);
-    //             }
-    //         };
-    //     xhr.send();
-    // }
-
-    // static createIDBcache(r) {
-    //     localforage.setItem('cachedRestaurants', r).then(function () {
-    //       return localforage.getItem('cachedRestaurants');
-    //     }).then(function (value) {
-    //
-    //     }).catch(function (err) {
-    //       // we got an error
-    //     });
-    // }
-
 
     static fetchRestaurants(callback) {
-        // fetch('http://localhost:1337/restaurants', {
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     }
-        // }).then(function(response) {
-        //         if (response.status !== 200) {
-        //             console.log('Request failed. Returned status of ' + response.status);
-        //             return;
-        //         }
-        //         //if (response) {
-        //             response.json().then(function(data) {
-        //                 //sterge idb vechi
-        //                 // creaza idb cu data apoi
-        //                 // set('cachedRestaurants', data)
-        //                 //   .then(() => console.log('It worked!'))
-        //                 //   .catch(err => console.log('It failed!', err));
-        //
-        //                 localForage.setItem('users', data, function(result) {
-        //                     console.log(result);
-        //                 });
-        //                 return callback(null, data);
-        //             });
-        //
-        //         //console.log(response.json());
-        //         //} else {   //aici , daca nu este response foloseste get idb nume
-        //         //    callback('error', null);
-        //         //}
-        //     }).catch(function() {
-        //         callback('errror', null);
-        //     });
         fetchingRestaurants(callback);
-
-
     }
-
-    // static fetchRestaurants(callback) {
-    //     fetch('http://localhost:1337/restaurants', {
-    //         headers: {
-    //             'Content-Type': 'application/json'
-    //         }
-    //     }).then(function(response) {
-    //             if (response.status !== 200) {
-    //                 console.log('Request failed. Returned status of ' + response.status);
-    //                 return;
-    //             }
-    //             //if (response) {
-    //                 response.json().then(function(data) {
-    //                     return callback(null, data);
-    //                 });
-    //
-    //             //console.log(response.json());
-    //             //} else {
-    //             //    callback('error', null);
-    //             //}
-    //         }).catch(function() {
-    //             callback('errror', null);
-    //         });
-    //
-    //
-    // }
 
     /**
         * Fetch a restaurant by its ID.
@@ -221,19 +128,27 @@ class DBHelper {
     }
 
     /**
+        * Restaurant name text fix - replacing spaces
+    */
+    static nameReplace(restaurant) {
+        var restaurantName = `${restaurant.name}`;
+        return restaurantName.split(' ').join('_');
+    }
+
+    /**
         * Restaurant image URL.
     */
     static imageUrlForRestaurant(restaurant) {  // using small image as default
-        return (`/img/${restaurant.photograph}-400_small.jpg`);
+        return (`/img/` + DBHelper.nameReplace(restaurant) + `-400_small.jpg`);
     }
     static imageUrlForRestaurant2x(restaurant) {
-        return (`/img/${restaurant.photograph}-400_small_2x.jpg 2x`);
+        return (`/img/` + DBHelper.nameReplace(restaurant) + `-400_small_2x.jpg 2x`);
     }
     static imageUrlForRestaurantMedium(restaurant) {
-        return (`/img/${restaurant.photograph}-650_medium.jpg, /img/${restaurant.photograph}-650_medium_2x.jpg 2x`);
+        return (`/img/` + DBHelper.nameReplace(restaurant) + `-650_medium.jpg, /img/` + DBHelper.nameReplace(restaurant) + `-650_medium_2x.jpg 2x`);
     }
     static imageUrlForRestaurantLarge(restaurant) {
-        return (`/img/${restaurant.photograph}-800_large.jpg, /img/${restaurant.photograph}-800_large_2x.jpg 2x`);
+        return (`/img/` + DBHelper.nameReplace(restaurant) + `-800_large.jpg, /img/` + DBHelper.nameReplace(restaurant) + `-800_large_2x.jpg 2x`);
     }
 
     /**

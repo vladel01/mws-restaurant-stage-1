@@ -1,4 +1,4 @@
-var myCacheNames = 'mws-restaurant-v4';
+var myCacheNames = 'mws-restaurant-v5';
 
 self.addEventListener('install', function(event) {
     event.waitUntil(
@@ -12,7 +12,7 @@ self.addEventListener('install', function(event) {
                 'js/dbhelper.js',
                 'js/main.js',
                 'js/restaurant_info.js',
-                'js/localforage.js',
+                'js/idb.js',
                 'js/manage-data.js',
                 //'data/restaurants.json',
                 //'/img',
