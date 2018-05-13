@@ -1,6 +1,7 @@
 /**
  * Common database helper functions.
  */
+
 class DBHelper {
 
     /**
@@ -31,32 +32,78 @@ class DBHelper {
     //     xhr.send();
     // }
 
+    // static createIDBcache(r) {
+    //     localforage.setItem('cachedRestaurants', r).then(function () {
+    //       return localforage.getItem('cachedRestaurants');
+    //     }).then(function (value) {
+    //
+    //     }).catch(function (err) {
+    //       // we got an error
+    //     });
+    // }
+
 
     static fetchRestaurants(callback) {
-        fetch('http://localhost:1337/restaurants', {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then(function(response) {
-                if (response.status !== 200) {
-                    console.log('Request failed. Returned status of ' + response.status);
-                    return;
-                }
-                //if (response) {
-                    response.json().then(function(data) {
-                        return callback(null, data);
-                    });
-
-                //console.log(response.json());
-                //} else {
-                //    callback('error', null);
-                //}
-            }).catch(function() {
-                callback('errror', null);
-            });
+        // fetch('http://localhost:1337/restaurants', {
+        //     headers: {
+        //         'Content-Type': 'application/json'
+        //     }
+        // }).then(function(response) {
+        //         if (response.status !== 200) {
+        //             console.log('Request failed. Returned status of ' + response.status);
+        //             return;
+        //         }
+        //         //if (response) {
+        //             response.json().then(function(data) {
+        //                 //sterge idb vechi
+        //                 // creaza idb cu data apoi
+        //                 // set('cachedRestaurants', data)
+        //                 //   .then(() => console.log('It worked!'))
+        //                 //   .catch(err => console.log('It failed!', err));
+        //
+        //                 localForage.setItem('users', data, function(result) {
+        //                     console.log(result);
+        //                 });
+        //                 return callback(null, data);
+        //             });
+        //
+        //         //console.log(response.json());
+        //         //} else {   //aici , daca nu este response foloseste get idb nume
+        //         //    callback('error', null);
+        //         //}
+        //     }).catch(function() {
+        //         callback('errror', null);
+        //     });
+        fetchingRestaurants(callback);
 
 
     }
+
+    // static fetchRestaurants(callback) {
+    //     fetch('http://localhost:1337/restaurants', {
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         }
+    //     }).then(function(response) {
+    //             if (response.status !== 200) {
+    //                 console.log('Request failed. Returned status of ' + response.status);
+    //                 return;
+    //             }
+    //             //if (response) {
+    //                 response.json().then(function(data) {
+    //                     return callback(null, data);
+    //                 });
+    //
+    //             //console.log(response.json());
+    //             //} else {
+    //             //    callback('error', null);
+    //             //}
+    //         }).catch(function() {
+    //             callback('errror', null);
+    //         });
+    //
+    //
+    // }
 
     /**
         * Fetch a restaurant by its ID.

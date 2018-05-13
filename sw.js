@@ -12,7 +12,9 @@ self.addEventListener('install', function(event) {
                 'js/dbhelper.js',
                 'js/main.js',
                 'js/restaurant_info.js',
-                'data/restaurants.json',
+                'js/localforage.js',
+                'js/manage-data.js',
+                //'data/restaurants.json',
                 //'/img',
                 'https://use.fontawesome.com/releases/v5.0.9/css/all.css'
             ]);
