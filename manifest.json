@@ -1,15 +1,20 @@
 {
-  "short_name": "Restaurant Reviews",
-  "name": "Restaurant Reviews",
-  "icons": [
-    {
-      "src":"data/manifest-icon.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    }
-  ],
-  "start_url": "/?utm_source=homescreen",
-  "background_color": "#fdfdfd",
-  "theme_color": "#252831",
-  "display": "standalone"
+    "short_name": "Restaurant Reviews",
+    "name": "Restaurant Reviews",
+    "icons": [
+        {
+            "src":"data/manifest-icon_192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src":"data/manifest-icon_512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "start_url": "/?utm_source=homescreen",
+    "background_color": "#fdfdfd",
+    "theme_color": "#252831",
+    "display": "standalone"
 }
