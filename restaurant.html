@@ -7,10 +7,6 @@
     <meta charset="utf-8">
     <!-- Normalize.css for better cross-browser consistency -->
     <link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css" />
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
-    <!-- Main CSS file -->
-    <link rel="stylesheet" href="css/styles.css" type="text/css">
-    <link rel="stylesheet" href="css/responsive.css">
     <title>Restaurant Info</title>
 
     <link rel="manifest" href="/manifest.json">
@@ -47,7 +43,8 @@
 
                 <div class="grid-column">
                     <p id="restaurant-cuisine"></p>
-                    <a href="#restaurant-map" id="restaurant-address"></a>
+                    <a href="#restaurant-map" id="restaurant-address" class="load-map"></a>
+                    <span id="ShowMap">Show map</span>
 
                     <h3 class="restaurant-schedule">Opened hours</h3>
                     <p id="restaurant-short-schedule" tabindex="0" aria-hidden="false"></p>
@@ -97,6 +94,14 @@
     </script>
 
     <script type="text/javascript">
+        /* Second CSS File */
+        var giftofspeed2 = document.createElement('link');
+        giftofspeed2.rel = 'stylesheet';
+        giftofspeed2.href = 'css/responsive.css';
+        giftofspeed2.type = 'text/css';
+        var godefer2 = document.getElementsByTagName('link')[0];
+        godefer2.parentNode.insertBefore(giftofspeed2, godefer2);
+
         /* First CSS File */
         var giftofspeed = document.createElement('link');
         giftofspeed.rel = 'stylesheet';
@@ -105,13 +110,14 @@
         var godefer = document.getElementsByTagName('link')[0];
         godefer.parentNode.insertBefore(giftofspeed, godefer);
 
-        /* Second CSS File */
-        var giftofspeed2 = document.createElement('link');
-        giftofspeed2.rel = 'stylesheet';
-        giftofspeed2.href = 'css/responsive.css';
-        giftofspeed2.type = 'text/css';
-        var godefer2 = document.getElementsByTagName('link')[0];
-        godefer2.parentNode.insertBefore(giftofspeed2, godefer2);
+
+        var giftofspeed3 = document.createElement('link');
+        giftofspeed3.rel = 'stylesheet';
+        giftofspeed3.href = 'https://use.fontawesome.com/releases/v5.0.9/css/all.css';
+        giftofspeed3.type = 'text/css';
+
+        var godefer3 = document.getElementsByTagName('link')[0];
+        godefer3.parentNode.insertBefore(giftofspeed3, godefer3);
     </script>
 
 </body>

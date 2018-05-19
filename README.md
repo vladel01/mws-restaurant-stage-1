@@ -31,3 +31,8 @@ Instructions:
 - Grunt is used for its responsive images plugin.
 - responsive.css contains style for elements by different media queries
 - font size is set on body in styles.css, for desktop and it will be reset for different media queries within responsive.css
+
+Using IDB, the response from the server is cached. Within manage-data.js, there are the functions used to create the indexedDB and to fetch the restaurants.
+
+### Note about css files
+The css files are loaded using script for defer load CSS - reference: https://www.giftofspeed.com/defer-loading-css/
