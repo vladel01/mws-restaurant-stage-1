@@ -88,12 +88,6 @@
     <!-- End scripts -->
 
     <script type="text/javascript">
-        if ('serviceWorker' in navigator) {
-          navigator.serviceWorker.register('sw.js');
-        }
-    </script>
-
-    <script type="text/javascript">
         /* Second CSS File */
         var giftofspeed2 = document.createElement('link');
         giftofspeed2.rel = 'stylesheet';
@@ -118,6 +112,12 @@
 
         var godefer3 = document.getElementsByTagName('link')[0];
         godefer3.parentNode.insertBefore(giftofspeed3, godefer3);
+    </script>
+
+    <script type="text/javascript">
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.register('sw.js');
+        }
     </script>
 
 </body>

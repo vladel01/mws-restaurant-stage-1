@@ -15,7 +15,8 @@ self.addEventListener('install', function(event) {
                 'js/idb.js',
                 'js/manage-data.js',
                 //'data/restaurants.json',
-                //'/img',
+                'manifest.json',
+                '/img/',
                 'https://use.fontawesome.com/releases/v5.0.9/css/all.css'
             ]);
         })

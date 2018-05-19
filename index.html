@@ -59,12 +59,6 @@
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB7sOnBPE6R1zGtgxxplZuGwHumFlCQink&libraries=places&callback=initMap"></script>
 
     <script type="text/javascript">
-        if ('serviceWorker' in navigator) {
-          navigator.serviceWorker.register('sw.js');
-        }
-    </script>
-
-    <script type="text/javascript">
         /* First CSS File */
         var giftofspeed = document.createElement('link');
         giftofspeed.rel = 'stylesheet';
@@ -80,6 +74,12 @@
         giftofspeed2.type = 'text/css';
         var godefer2 = document.getElementsByTagName('link')[0];
         godefer2.parentNode.insertBefore(giftofspeed2, godefer2);
+    </script>
+
+    <script type="text/javascript">
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.register('sw.js');
+        }
     </script>
 
 </body>
