@@ -367,7 +367,8 @@ nav h1 a {
 	padding-bottom: 80px;
 }
 
-#restaurant-container .grid-column {
+#restaurant-container .grid-column,
+#reviews-zones .grid-column {
 	width: 50%;
 }
 

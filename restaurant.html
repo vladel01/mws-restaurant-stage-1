@@ -55,9 +55,29 @@
         <!-- end restaurant -->
 
         <!-- Beginning reviews -->
-        <section id="reviews-container" class="content-wrapper" role="contentinfo" aria-label="Restaurant available reviews">
-            <ul id="reviews-list"></ul>
-        </section>
+        <div id="reviews-zones" class="content-wrapper">
+            <div class="grid-line">
+                <div class="grid-column">
+                    <section id="reviews-container" class="" role="contentinfo" aria-label="Restaurant available reviews">
+                        <ul id="reviews-list"></ul>
+                    </section>
+                </div>
+                <div class="grid-column">
+                    <form id="newReview" class="write-review" action="#">
+                        <input type="text" name="username" placeholder="Username">
+                        <input type="radio" name="rating" value="1">
+                        <input type="radio" name="rating" value="2">
+                        <input type="radio" name="rating" value="3">
+                        <input type="radio" name="rating" value="4">
+                        <input type="radio" name="rating" value="5">
+                        <textarea name="comment" placeholder="comment"></textarea>
+                        <input type="submit" value="submit">
+                    </form>
+
+
+                </div>
+            </div>
+        </div>
         <!-- End reviews -->
 
         <!-- Beginning map -->
@@ -79,6 +99,7 @@
     <!-- IndexedDB data cache -->
     <script type="application/javascript" charset="utf-8" src="js/idb.js"></script>
     <script type="application/javascript" charset="utf-8" src="js/manage-data.js"></script>
+    <script type="application/javascript" charset="utf-8" src="js/manage-reviews.js"></script>
     <!-- Database helpers -->
     <script type="text/javascript" src="js/dbhelper.js"></script>
     <!-- Main javascript file -->

@@ -14,6 +14,7 @@ self.addEventListener('install', function(event) {
                 'js/restaurant_info.js',
                 'js/idb.js',
                 'js/manage-data.js',
+                'js/manage-reviews.js',
                 //'data/restaurants.json',
                 'manifest.json',
                 '/img/',

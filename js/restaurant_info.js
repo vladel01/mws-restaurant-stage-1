@@ -74,6 +74,14 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
     name.innerHTML = restaurant.name;
     name.setAttribute('role', 'heading');
 
+    const idInput = document.createElement('input');
+    idInput.setAttribute('value', self.restaurant.id);
+    idInput.setAttribute('type', 'hidden');
+    idInput.setAttribute('aria-hidden', 'true');
+    idInput.setAttribute('id', 'restaurantID');
+    const reviewZone = document.getElementById('reviews-zones');
+    reviewZone.prepend(idInput);
+
     const address = document.getElementById('restaurant-address');
     address.innerHTML = '<i class="fas fa-map-marker-alt"></i>' + restaurant.address;
     address.setAttribute('role', 'contentinfo');
@@ -107,7 +115,8 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
         fillRestaurantHoursHTML();
     }
     // fill reviews
-    fillReviewsHTML();
+    //fillReviewsHTML();
+    getReviewsOfRestaurant(self.restaurant.id);
 
     const hoursH3 = document.getElementById('restaurant-short-schedule');
     if (restaurant.operating_hours.Saturday == restaurant.operating_hours.Sunday) {
@@ -143,7 +152,7 @@ fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hours) => 
 /**
  * Create all reviews HTML and add them to the webpage.
  */
-fillReviewsHTML = (reviews = self.restaurant.reviews) => {
+fillReviewsHTML = (reviews) => {
     const container = document.getElementById('reviews-container');
     const title = document.createElement('h2');
     title.innerHTML = 'Reviews';
@@ -176,9 +185,9 @@ createReviewHTML = (review) => {
     name.innerHTML = '<strong>Author: </strong>' + review.name;
     li.appendChild(name);
 
-    const date = document.createElement('p');
-    date.innerHTML = '<strong>Date: </strong>' + review.date;
-    li.appendChild(date);
+    // const date = document.createElement('p');
+    // date.innerHTML = '<strong>Date: </strong>' + review.date;
+    // li.appendChild(date);
 
     const rating = document.createElement('p');
 
