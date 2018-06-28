@@ -64,17 +64,20 @@
                 </div>
                 <div class="grid-column">
                     <form id="newReview" class="write-review" action="#">
-                        <input type="text" name="username" placeholder="Username">
-                        <input type="radio" name="rating" value="1">
-                        <input type="radio" name="rating" value="2">
-                        <input type="radio" name="rating" value="3">
-                        <input type="radio" name="rating" value="4">
-                        <input type="radio" name="rating" value="5">
-                        <textarea name="comment" placeholder="comment"></textarea>
+                        <input type="hidden" id="restID" value="" >
+                        <input type="text" id="username" placeholder="Username">
+
+                        <div id="ratingValue">
+                            <input type="checkbox" name="rating" value="1" onclick="checkboxRating(this)">
+                            <input type="checkbox" name="rating" value="2" onclick="checkboxRating(this)">
+                            <input type="checkbox" name="rating" value="3" onclick="checkboxRating(this)">
+                            <input type="checkbox" name="rating" value="4" onclick="checkboxRating(this)">
+                            <input type="checkbox" name="rating" value="5" onclick="checkboxRating(this)">
+                        </div>
+                        <input type="hidden" id="ratingHaveValue" value="" >
+                        <textarea id="comment" placeholder="comment"></textarea>
                         <input type="submit" value="submit">
                     </form>
-
-
                 </div>
             </div>
         </div>
@@ -96,16 +99,17 @@
     <!-- End footer -->
 
     <!-- Beginning scripts -->
-    <!-- IndexedDB data cache -->
-    <script type="application/javascript" charset="utf-8" src="js/idb.js"></script>
-    <script type="application/javascript" charset="utf-8" src="js/manage-data.js"></script>
-    <script type="application/javascript" charset="utf-8" src="js/manage-reviews.js"></script>
+
     <!-- Database helpers -->
     <script type="text/javascript" src="js/dbhelper.js"></script>
     <!-- Main javascript file -->
     <script type="text/javascript" src="js/restaurant_info.js"></script>
     <!-- Google Maps -->
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB7sOnBPE6R1zGtgxxplZuGwHumFlCQink&libraries=places&callback=initMap"></script>
+    <!-- IndexedDB data cache -->
+    <script type="application/javascript" charset="utf-8" src="js/idb.js"></script>
+    <script type="application/javascript" charset="utf-8" src="js/manage-data.js"></script>
+    <script type="application/javascript" charset="utf-8" src="js/manage-reviews.js"></script>
     <!-- End scripts -->
 
     <script type="text/javascript">

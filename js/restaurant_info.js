@@ -74,13 +74,8 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
     name.innerHTML = restaurant.name;
     name.setAttribute('role', 'heading');
 
-    const idInput = document.createElement('input');
-    idInput.setAttribute('value', self.restaurant.id);
-    idInput.setAttribute('type', 'hidden');
-    idInput.setAttribute('aria-hidden', 'true');
-    idInput.setAttribute('id', 'restaurantID');
-    const reviewZone = document.getElementById('reviews-zones');
-    reviewZone.prepend(idInput);
+    const IdInput = document.getElementById('restID');
+    IdInput.setAttribute('value', self.restaurant.id);
 
     const address = document.getElementById('restaurant-address');
     address.innerHTML = '<i class="fas fa-map-marker-alt"></i>' + restaurant.address;
