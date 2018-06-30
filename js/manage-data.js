@@ -1,17 +1,3 @@
-function openDatabase(data) {
-    return dbPromise = idb.open('restaurants-data', 1, function(upgradeDB) {
-        var keyValStore = upgradeDB.createObjectStore('keyval');
-        keyValStore.put(data, 'cached-restaurants');
-    });
-}
-
-function getDatabase(data) {
-    return dbPromise.then(function(db) {
-        var tx = db.transaction('keyval');
-        var keyValStore = tx.objectStore('keyval');
-        return keyValStore.get(data);
-    });
-}
 
 function fetchingRestaurants(callback) {
     fetch('http://localhost:1337/restaurants', {
@@ -26,14 +12,14 @@ function fetchingRestaurants(callback) {
             if (response) {
                 response.json().then(function(data) {
 
-                    openDatabase(data);
+                    addRestaurantsIdb(data);
                     return callback(null, data);
 
                 });
 
             } else {
 
-                getDatabase('restaurants-data');
+                getRestaurantsIdb();
 
             }
         }).catch(function() {

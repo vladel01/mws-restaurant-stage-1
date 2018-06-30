@@ -1,26 +1,3 @@
-function openReviewsDatabase(data) {
-    return dbPromise = idb.open('restaurants-reviews', 2, function(upgradeDB) {
-        var keyValStore = upgradeDB.createObjectStore('reviewkeyval');
-        keyValStore.put(data, 'cached-reviews');
-    });
-}
-
-function getReviewsDatabase(data) {
-    return dbPromise.then(function(db) {
-        var tx = db.transaction('reviewkeyval');
-        var keyValStore = tx.objectStore('reviewkeyval');
-        return keyValStore.get(data);
-    });
-}
-
-function addReviewToIdb(data) {
-    return dbPromise.then(function(db) {
-        const tx = db.transaction('reviewkeyval', 'readwrite');
-        tx.objectStore('reviewkeyval').put(data, 'cached-reviews');
-        return tx.complete;
-    });
-}
-
 function getReviewsOfRestaurant(id) {
     fetch('http://localhost:1337/reviews/?restaurant_id=' + id, {
         headers: {
@@ -34,14 +11,16 @@ function getReviewsOfRestaurant(id) {
             if (response) {
                 response.json().then(function(responseData) {
 
-                    openReviewsDatabase(responseData);
+                    addReviewsOneRestaurant(id, responseData);
                     fillReviewsHTML(responseData);  // Function used in restaurant_info
 
+                }).then(function(data) {
+                    console.log(data);
                 });
 
             } else {
 
-                getReviewsDatabase('restaurants-reviews');
+                getReviewsOneRestaurant(id);
 
             }
         }).catch(function() {
