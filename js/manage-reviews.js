@@ -1,5 +1,5 @@
 function openReviewsDatabase(data) {
-    return dbPromise = idb.open('restaurants-reviews', 1, function(upgradeDB) {
+    return dbPromise = idb.open('restaurants-reviews', 2, function(upgradeDB) {
         var keyValStore = upgradeDB.createObjectStore('reviewkeyval');
         keyValStore.put(data, 'cached-reviews');
     });
@@ -10,6 +10,14 @@ function getReviewsDatabase(data) {
         var tx = db.transaction('reviewkeyval');
         var keyValStore = tx.objectStore('reviewkeyval');
         return keyValStore.get(data);
+    });
+}
+
+function addReviewToIdb(data) {
+    return dbPromise.then(function(db) {
+        const tx = db.transaction('reviewkeyval', 'readwrite');
+        tx.objectStore('reviewkeyval').put(data, 'cached-reviews');
+        return tx.complete;
     });
 }
 
@@ -60,6 +68,9 @@ function checkboxRating(checkbox) {
     const ratingField = document.getElementById('ratingHaveValue');
     const commentField = document.getElementById('comment');
     const restaurantInfo = document.getElementById('restID');
+
+    const responseContainer = document.getElementById('reviews-list');
+
     let nameValue;
     let ratingValue;
     let commentValue;
@@ -69,7 +80,6 @@ function checkboxRating(checkbox) {
 
     form.addEventListener('submit', function (e) {
         e.preventDefault();
-
         nameValue = nameField.value;
         ratingValue = ratingField.value;
         commentValue = commentField.value;
@@ -87,9 +97,35 @@ function checkboxRating(checkbox) {
         }).then(
             response => response.json()
         ).then(
-            res => { console.log(res); }
-        ).catch(
+            addReview
+        ).then(
+            response => addReviewToIdb(response)
+        )
+        .then(
+            form.reset()
+        )
+        .catch(
             error => { console.log(error); }
         );
+
+        function addReview() {
+            let htmlContent = '';
+            const newReview = document.createElement('li');
+            newReview.setAttribute('role', 'listitem');
+            newReview.setAttribute('tabindex', '0');
+
+            htmlContent = '<p><strong>Author: </strong>' + nameValue + '</p>' +
+                            '<p><strong>Rating: </strong>' +
+                            '<span class="star-rate color-' + ratingValue + '" aria-label="' + ratingValue + ' stars">' +
+                                '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>' +
+                            '</span>' +
+                           '</p>' +
+                           '<p class="review-comment">' + commentValue + '</p>';
+
+            newReview.innerHTML = htmlContent;
+
+            responseContainer.append(newReview);
+        }
     });
+
 })();
