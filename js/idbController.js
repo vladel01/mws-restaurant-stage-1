@@ -7,7 +7,7 @@ function addRestaurantsIdb(data) {
     return dbPromise.then(function(db) {
         var tx = db.transaction('keyval', 'readwrite');
         var keyValStore = tx.objectStore('keyval');
-        keyValStore.put(data, 'restaurants-info');
+        return keyValStore.put(data, 'restaurants-info');
     })
 }
 
@@ -23,7 +23,7 @@ function addReviewsOneRestaurant(id, data) {
     return dbPromise.then(function(db) {
         var tx = db.transaction('keyval', 'readwrite');
         var keyValStore = tx.objectStore('keyval');
-        keyValStore.put(data, ('reviews-restaurant-' + id));
+        return keyValStore.put(data, ('reviews-restaurant-' + id));
     })
 }
 
@@ -34,19 +34,3 @@ function getReviewsOneRestaurant(id) {
         return keyValStore.get('reviews-restaurant-' + id);
     })
 }
-
-// function getDatabase(data) {
-//     return dbPromise.then(function(db) {
-//         var tx = db.transaction('keyval');
-//         var keyValStore = tx.objectStore('keyval');
-//         return keyValStore.get(data);
-//     });
-// }
-//
-//
-// function addToDatabase(data) {
-//     return dbPromise = idb.open('restaurants-data', 3, function(upgradeDB) {
-//         var keyValStore = upgradeDB.createObjectStore('reviews');
-//         keyValStore.put(data, 'cached-reviews');
-//     });
-// }

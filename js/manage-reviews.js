@@ -15,7 +15,7 @@ function getReviewsOfRestaurant(id) {
                     fillReviewsHTML(responseData);  // Function used in restaurant_info
 
                 }).then(function(data) {
-                    console.log(data);
+
                 });
 
             } else {
@@ -78,9 +78,6 @@ function checkboxRating(checkbox) {
         ).then(
             addReview
         ).then(
-            response => addReviewToIdb(response)
-        )
-        .then(
             form.reset()
         )
         .catch(
