@@ -34,3 +34,16 @@ function getReviewsOneRestaurant(id) {
         return keyValStore.get('reviews-restaurant-' + id);
     })
 }
+
+
+// function addReviewsAfterForm(id, data) {
+//     return dbPromise.then(function(db) {
+//         var tx = db.transaction('keyval', 'readwrite');
+//         var keyValStore = tx.objectStore('keyval');
+//         return keyValStore.put(data, ('reviews-restaurant-' + id));
+//     })
+// }
+//
+// function addNewReviewToQueue(data) {
+//
+// }

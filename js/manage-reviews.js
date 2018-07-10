@@ -29,6 +29,7 @@ function getReviewsOfRestaurant(id) {
 }
 
 
+
 function checkboxRating(checkbox) {
     var checkboxes = document.getElementsByName('rating');
     var getRateValue = document.getElementById('ratingHaveValue');
@@ -55,6 +56,7 @@ function checkboxRating(checkbox) {
     let commentValue;
     let restaurantId;
 
+    let restaurantReviewsKeeper = '';
 
 
     form.addEventListener('submit', function (e) {
@@ -63,6 +65,8 @@ function checkboxRating(checkbox) {
         ratingValue = ratingField.value;
         commentValue = commentField.value;
         restaurantId = restaurantInfo.value;
+
+
 
         var review = { restaurant_id: restaurantId, name: nameValue, rating: ratingValue, comments: commentValue };
 
@@ -74,7 +78,21 @@ function checkboxRating(checkbox) {
                 'content-type': 'application/json'
             }
         }).then(
-            response => response.json()
+            getReviewsOneRestaurant(restaurantId).then(function(reviewsStore){
+                restaurantReviewsKeeper = reviewsStore;
+                console.log(reviewsStore);
+            })
+        ).then(
+            response => response.json().then(
+                function(responseData) {
+                    restaurantReviewsKeeper.push(responseData);
+                    console.log(responseData);
+                    console.log(restaurantReviewsKeeper);
+
+                    addReviewsOneRestaurant(restaurantId, restaurantReviewsKeeper);
+                    // continue here --> This happens when has response. When no response, add data to special queue idb
+                }
+            )
         ).then(
             addReview
         ).then(
