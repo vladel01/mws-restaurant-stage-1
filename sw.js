@@ -60,3 +60,17 @@ self.addEventListener('message', function(event) {
         self.skipWaiting();
     }
 });
+
+
+self.addEventListener('sync', function(event) {
+  if (event.tag == 'myFirstSync') {
+    event.waitUntil(
+        alert()
+
+        // conform discutie
+        //here I must give action to get reviews from idb and re-post them
+
+        
+    );
+  }
+});

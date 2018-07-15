@@ -10,17 +10,18 @@ function getReviewsOfRestaurant(id) {
             }
             if (response) {
                 response.json().then(function(responseData) {
-
+                    // here ...check if you have reviews to resubmit and then get all new idb reviews
                     addReviewsOneRestaurant(id, responseData);
                     fillReviewsHTML(responseData);  // Function used in restaurant_info
-
-                }).then(function(data) {
 
                 });
 
             } else {
 
-                getReviewsOneRestaurant(id);
+                getReviewsOneRestaurant(id).then(function(cachedReviews) {
+                    fillReviewsHTML(cachedReviews);
+                });
+                //getReviewsFromQueue(); // Continue here. Should I get these reviews if still offline? This get should be used for the online reconnecting situation/fucntion
 
             }
         }).catch(function() {
@@ -40,7 +41,6 @@ function checkboxRating(checkbox) {
     })
 }
 
-
 (function () {
     const form = document.getElementById('newReview');
     let review;
@@ -57,6 +57,7 @@ function checkboxRating(checkbox) {
     let restaurantId;
 
     let restaurantReviewsKeeper = '';
+    let reviewsOnHold = [];
 
 
     form.addEventListener('submit', function (e) {
@@ -66,9 +67,9 @@ function checkboxRating(checkbox) {
         commentValue = commentField.value;
         restaurantId = restaurantInfo.value;
 
-
-
         var review = { restaurant_id: restaurantId, name: nameValue, rating: ratingValue, comments: commentValue };
+
+
 
 
         fetch('http://localhost:1337/reviews/', {
@@ -90,16 +91,34 @@ function checkboxRating(checkbox) {
                     console.log(restaurantReviewsKeeper);
 
                     addReviewsOneRestaurant(restaurantId, restaurantReviewsKeeper);
-                    // continue here --> This happens when has response. When no response, add data to special queue idb
                 }
             )
         ).then(
             addReview
         ).then(
             form.reset()
-        )
-        .catch(
-            error => { console.log(error); }
+        ).then(
+            alert('Review sent')
+        ).catch(
+
+                // getReviewsOneRestaurant(restaurantId).then(function(reviewsStored){
+                //     restaurantReviewsKeeper = reviewsStored;
+                // }).then(
+                //     function() {
+                //         console.log(review);
+                //         restaurantReviewsKeeper.push(review);
+                //         addReviewsOneRestaurant(restaurantId, restaurantReviewsKeeper);
+                //
+                //         getReviewsFromQueue().then(function(reviewsWaiting){
+                //             reviewsOnHold = reviewsWaiting;
+                //         }).then(reviewsOnHold.push(review)).then(addNewReviewToQueue(reviewsOnHold));
+                //
+                //         //console.log(reviewsOnHold);
+                //
+                //         addReview();
+                //         alert('No network connection. Your review will be available to others after you reconnect')
+                //     }
+                // )
         );
 
         function addReview() {
