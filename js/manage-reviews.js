@@ -1,3 +1,5 @@
+let restaurantReviewVar;
+
 function getReviewsOfRestaurant(id) {
     fetch('http://localhost:1337/reviews/?restaurant_id=' + id, {
         headers: {
@@ -13,7 +15,7 @@ function getReviewsOfRestaurant(id) {
                     // here ...check if you have reviews to resubmit and then get all new idb reviews
                     addReviewsOneRestaurant(id, responseData);
                     fillReviewsHTML(responseData);  // Function used in restaurant_info
-
+                    restaurantReviewVar = responseData;
                 });
 
             } else {
@@ -41,7 +43,7 @@ function checkboxRating(checkbox) {
     })
 }
 
-(function () {
+function submitReview(reg) {  //This function is called on sw registration
     const form = document.getElementById('newReview');
     let review;
     const nameField = document.getElementById('username');
@@ -56,9 +58,6 @@ function checkboxRating(checkbox) {
     let commentValue;
     let restaurantId;
 
-    let restaurantReviewsKeeper = '';
-    let reviewsOnHold = [];
-
 
     form.addEventListener('submit', function (e) {
         e.preventDefault();
@@ -69,8 +68,28 @@ function checkboxRating(checkbox) {
 
         var review = { restaurant_id: restaurantId, name: nameValue, rating: ratingValue, comments: commentValue };
 
+        restaurantReviewVar.push(review);
 
+        dbReviews.then(function(db) {
+            var transaction = db.transaction(('reviewStore_' + restaurantId), 'readwrite');
+            return transaction.objectStore('reviewStore_' + restaurantId).put(restaurantReviewVar, ('Restaurant_' + restaurantId));
+        });
 
+        // ReviewsQueue.then(function(db) {
+        //     var trs = db.transaction('PostponedReviews', 'readwrite');
+        //     return trs.objectStore('PostponedReviews').put(review);
+
+        store.outbox('readwrite').then(function(outbox) {
+            return outbox.put(review);
+        }).then(function() {
+            // register for sync and clean up the form
+            return reg.sync.register('outbox');
+        }).catch(function() {
+            // something went wrong with the database or the sync registration, log and submit the form
+                console.error(err);
+                form.submit();
+            }    
+        );
 
         fetch('http://localhost:1337/reviews/', {
             method: 'POST',
@@ -79,46 +98,14 @@ function checkboxRating(checkbox) {
                 'content-type': 'application/json'
             }
         }).then(
-            getReviewsOneRestaurant(restaurantId).then(function(reviewsStore){
-                restaurantReviewsKeeper = reviewsStore;
-                console.log(reviewsStore);
-            })
-        ).then(
-            response => response.json().then(
-                function(responseData) {
-                    restaurantReviewsKeeper.push(responseData);
-                    console.log(responseData);
-                    console.log(restaurantReviewsKeeper);
-
-                    addReviewsOneRestaurant(restaurantId, restaurantReviewsKeeper);
-                }
-            )
-        ).then(
             addReview
         ).then(
             form.reset()
         ).then(
             alert('Review sent')
         ).catch(
+            function(err) { console.log(err) }
 
-                // getReviewsOneRestaurant(restaurantId).then(function(reviewsStored){
-                //     restaurantReviewsKeeper = reviewsStored;
-                // }).then(
-                //     function() {
-                //         console.log(review);
-                //         restaurantReviewsKeeper.push(review);
-                //         addReviewsOneRestaurant(restaurantId, restaurantReviewsKeeper);
-                //
-                //         getReviewsFromQueue().then(function(reviewsWaiting){
-                //             reviewsOnHold = reviewsWaiting;
-                //         }).then(reviewsOnHold.push(review)).then(addNewReviewToQueue(reviewsOnHold));
-                //
-                //         //console.log(reviewsOnHold);
-                //
-                //         addReview();
-                //         alert('No network connection. Your review will be available to others after you reconnect')
-                //     }
-                // )
         );
 
         function addReview() {
@@ -141,4 +128,4 @@ function checkboxRating(checkbox) {
         }
     });
 
-})();
+}

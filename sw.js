@@ -1,4 +1,4 @@
-var myCacheNames = 'mws-restaurant-v6';
+var myCacheNames = 'mws-restaurant-v7';
 
 self.addEventListener('install', function(event) {
     event.waitUntil(
@@ -55,22 +55,52 @@ self.addEventListener('fetch', function(event) {
     );
 });
 
-self.addEventListener('message', function(event) {
-    if (event.data.action === 'skipWaiting') {
-        self.skipWaiting();
-    }
-});
+// self.addEventListener('message', function(event) {
+//     if (event.data.action === 'skipWaiting') {
+//         self.skipWaiting();
+//     }
+// });
 
+
+// self.addEventListener('sync', function(event) {
+//   if (event.tag == 'myFirstSync') {
+//     event.waitUntil(
+//
+//
+//         // conform discutie
+//         //here I must give action to get reviews from idb and re-post them
+//
+//
+//     );
+//   }
+// });
 
 self.addEventListener('sync', function(event) {
-  if (event.tag == 'myFirstSync') {
     event.waitUntil(
-        alert()
+        store.outbox('readonly').then(function(outbox) {
+          return outbox.getAll();
+        }).then(function(messages) {
+          return Promise.all(messages.map(function(message) {
+            return fetch('http://localhost:1337/reviews/', {
+              method: 'POST',
+              body: JSON.stringify(message),
+              headers: {
+                'Accept': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest',
+                'Content-Type': 'application/json'
+              }
+            }).then(function(response) {
+              return response.json();
+            }).then(function(data) {
+              if (data.result === 'success') {
+                return store.outbox('readwrite').then(function(outbox) {
+                  return outbox.delete(message.id);
+                });
+              }
+            })
+          })
+         );
 
-        // conform discutie
-        //here I must give action to get reviews from idb and re-post them
-
-        
+        }).catch(function(err) { console.error(err); });
     );
-  }
 });
