@@ -8,16 +8,16 @@ var dbPromise = idb.open('restaurants-data', 4, function(upgradeDB) {
 function addRestaurantsIdb(data) {
     return dbPromise.then(function(db) {
         var tx = db.transaction('keyval', 'readwrite');
-        var keyValStore = tx.objectStore('keyval');
-        return keyValStore.put(data, 'restaurants-info');
+        return tx.objectStore('keyval').put(data, 'restaurants-info');
+        //tx.complete;
     })
 }
 
 function getRestaurantsIdb() {
     return dbPromise.then(function(db) {
         var tx = db.transaction('keyval');
-        var keyValStore = tx.objectStore('keyval');
-        return keyValStore.get('restaurants-info');
+        return tx.objectStore('keyval').get('restaurants-info');
+        //return tx.complete;
     })
 }
 
@@ -35,21 +35,22 @@ function addReviewsOneRestaurant(id, data) {
     return dbReviews.then(function(db) {
         var tr = db.transaction(('reviewStore_' + id), 'readwrite');
         tr.objectStore('reviewStore_' + id).put(data, ('Restaurant_' + id));
+        return tr.complete;
     })
 }
 
 function getReviewsOneRestaurant(id) {
     return dbReviews.then(function(db) {
         var tr = db.transaction('reviewStore_' + id);
-        tr.objectStore('reviewStore_' + id).get('Restaurant_' + id);
+        return tr.objectStore('reviewStore_' + id).get('Restaurant_' + id);
     })
 }
 
 
 // Unused after Refactor
-// var dbReviewsQueue = idb.open('OfflineReviews', 1, function(upgradeDB) {
-//     upgradeDB.createObjectStore('PostponedReviews', { autoIncrement : true, keyPath: 'id' });
-// });
+var dbReviewsQueue = idb.open('OfflineReviews', 1, function(upgradeDB) {
+    upgradeDB.createObjectStore('PostponedReviews', { autoIncrement : true, keyPath: 'id' });
+});
 
 
 // var store = {
@@ -71,12 +72,14 @@ function getReviewsOneRestaurant(id) {
 //     }
 // }
 
+
+//Shared actions for queue reviews
 var store = {
   db: null,
 
   init: function() {
     if (store.db) { return Promise.resolve(store.db); }
-    return idb.open('messages', 1, function(upgradeDb) {
+    return idb.open('messages', 2, function(upgradeDb) {
       upgradeDb.createObjectStore('outbox', { autoIncrement : true, keyPath: 'id' });
     }).then(function(db) {
       return store.db = db;

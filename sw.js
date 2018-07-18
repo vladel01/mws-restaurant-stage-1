@@ -1,4 +1,4 @@
-var myCacheNames = 'mws-restaurant-v7';
+var myCacheNames = 'mws-restaurant-v15';
 
 self.addEventListener('install', function(event) {
     event.waitUntil(
@@ -9,6 +9,7 @@ self.addEventListener('install', function(event) {
                 'restaurant.html',
                 'css/styles.css',
                 'css/responsive.css',
+                'index.js',
                 'js/idb.js',
                 'js/idbController.js',
                 'js/dbhelper.js',
@@ -55,11 +56,11 @@ self.addEventListener('fetch', function(event) {
     );
 });
 
-// self.addEventListener('message', function(event) {
-//     if (event.data.action === 'skipWaiting') {
-//         self.skipWaiting();
-//     }
-// });
+self.addEventListener('message', function(event) {
+    if (event.data.action === 'skipWaiting') {
+        self.skipWaiting();
+    }
+});
 
 
 // self.addEventListener('sync', function(event) {
@@ -75,32 +76,33 @@ self.addEventListener('fetch', function(event) {
 //   }
 // });
 
-self.addEventListener('sync', function(event) {
-    event.waitUntil(
-        store.outbox('readonly').then(function(outbox) {
-          return outbox.getAll();
-        }).then(function(messages) {
-          return Promise.all(messages.map(function(message) {
-            return fetch('http://localhost:1337/reviews/', {
-              method: 'POST',
-              body: JSON.stringify(message),
-              headers: {
-                'Accept': 'application/json',
-                'X-Requested-With': 'XMLHttpRequest',
-                'Content-Type': 'application/json'
-              }
-            }).then(function(response) {
-              return response.json();
-            }).then(function(data) {
-              if (data.result === 'success') {
-                return store.outbox('readwrite').then(function(outbox) {
-                  return outbox.delete(message.id);
-                });
-              }
-            })
-          })
-         );
 
-        }).catch(function(err) { console.error(err); });
-    );
-});
+// self.addEventListener('sync', function(event) {
+//     event.waitUntil(
+//         store.outbox('readonly').then(function(outbox) {
+//             return outbox.getAll();
+//         }).then(function(messages) {
+//             // send the messages
+//             return Promise.all(messages.map(function(message) {
+//                 return fetch('http://localhost:1337/reviews/', {
+//                   method: 'POST',
+//                   body: JSON.stringify(message),
+//                   headers: {
+//                     'Accept': 'application/json',
+//                     'X-Requested-With': 'XMLHttpRequest',
+//                     'Content-Type': 'application/json'
+//                   }
+//                 }).then(function(response) {
+//                   return response.json();
+//                 }).then(function(data) {
+//                   if (data.result === 'success') {
+//                     return store.outbox('readwrite').then(function(outbox) {
+//                       return outbox.delete(message);
+//                     });
+//                   }
+//                 })
+//             })
+//             )
+//         }).catch(function(err) { console.error(err); });
+//     );
+// });

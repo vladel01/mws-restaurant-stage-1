@@ -1,36 +1,34 @@
-let restaurantReviewVar;
-
 function getReviewsOfRestaurant(id) {
-    fetch('http://localhost:1337/reviews/?restaurant_id=' + id, {
+
+    fetch('http://localhost:133/reviews/?restaurant_id=' + id, {
         headers: {
             'Content-Type': 'application/json'
         }
     }).then(function(response) {
-            if (response.status !== 200) {
-                console.log('Request failed. Returned status of ' + response.status);
-                return;
-            }
-            if (response) {
-                response.json().then(function(responseData) {
-                    // here ...check if you have reviews to resubmit and then get all new idb reviews
-                    addReviewsOneRestaurant(id, responseData);
-                    fillReviewsHTML(responseData);  // Function used in restaurant_info
-                    restaurantReviewVar = responseData;
-                });
+        if (response.status !== 200) {
+            console.log('Request failed. Returned status of ' + response.status);
+            return;
+        }
 
-            } else {
+        if(response.ok) {
+            return response.json();
+        }
 
-                getReviewsOneRestaurant(id).then(function(cachedReviews) {
-                    fillReviewsHTML(cachedReviews);
-                });
-                //getReviewsFromQueue(); // Continue here. Should I get these reviews if still offline? This get should be used for the online reconnecting situation/fucntion
+        console.log('face ceva? ar trebui nu');
+        throw new Error('Network response was not ok, so load form idb');
 
-            }
-        }).catch(function() {
-            callback('errror', null);
+    }).then(function(reviewsData) {
+        fillReviewsHTML(reviewsData);
+        addReviewsOneRestaurant(id, reviewsData);
+        console.log('ok?');
+    }).catch(function(error) {
+        console.log('There has been a problem with your fetch operation: ', error.message);
+        console.log('nu uita sa pui 7 la 1337')
+        getReviewsOneRestaurant(id).then(function(cachedReviews) {
+            fillReviewsHTML(cachedReviews);
         });
+    });
 }
-
 
 
 function checkboxRating(checkbox) {
@@ -43,7 +41,7 @@ function checkboxRating(checkbox) {
     })
 }
 
-function submitReview(reg) {  //This function is called on sw registration
+//function submitReview() {  //This function is called on sw registration
     const form = document.getElementById('newReview');
     let review;
     const nameField = document.getElementById('username');
@@ -58,9 +56,12 @@ function submitReview(reg) {  //This function is called on sw registration
     let commentValue;
     let restaurantId;
 
+    let restaurantReviewVarKeeper;
 
-    form.addEventListener('submit', function (e) {
-        e.preventDefault();
+
+    //function submitReviews() {
+    form.addEventListener('submit', event => {
+        event.preventDefault()
         nameValue = nameField.value;
         ratingValue = ratingField.value;
         commentValue = commentField.value;
@@ -68,45 +69,46 @@ function submitReview(reg) {  //This function is called on sw registration
 
         var review = { restaurant_id: restaurantId, name: nameValue, rating: ratingValue, comments: commentValue };
 
-        restaurantReviewVar.push(review);
+        getReviewsOneRestaurant(restaurantId).then(function(cachedReviews) {
+            var ar = cachedReviews;
+            restaurantReviewVarKeeper = ar.slice(0);
 
-        dbReviews.then(function(db) {
-            var transaction = db.transaction(('reviewStore_' + restaurantId), 'readwrite');
-            return transaction.objectStore('reviewStore_' + restaurantId).put(restaurantReviewVar, ('Restaurant_' + restaurantId));
+            restaurantReviewVarKeeper.push(review);
+            addReviewsOneRestaurant(restaurantId, restaurantReviewVarKeeper);
+            //console.log(restaurantReviewVarKeeper);
         });
 
-        // ReviewsQueue.then(function(db) {
-        //     var trs = db.transaction('PostponedReviews', 'readwrite');
-        //     return trs.objectStore('PostponedReviews').put(review);
-
-        store.outbox('readwrite').then(function(outbox) {
-            return outbox.put(review);
-        }).then(function() {
-            // register for sync and clean up the form
-            return reg.sync.register('outbox');
-        }).catch(function() {
-            // something went wrong with the database or the sync registration, log and submit the form
-                console.error(err);
-                form.submit();
-            }    
-        );
-
-        fetch('http://localhost:1337/reviews/', {
-            method: 'POST',
-            body: JSON.stringify(review),
-            headers: {
-                'content-type': 'application/json'
-            }
+        dbReviewsQueue.then(function(db) {
+            var trs = db.transaction('PostponedReviews', 'readwrite');
+            return trs.objectStore('PostponedReviews').put(review);
         }).then(
-            addReview
+            addReview()
         ).then(
             form.reset()
-        ).then(
-            alert('Review sent')
-        ).catch(
-            function(err) { console.log(err) }
+        ).catch(function(err) {
+            // something went wrong with the database or the sync registration, log and submit the form
+            console.error(err);
+            //form.submit();
+        });
 
-        );
+
+        // fetch('http://localhost:1337/reviews/', {
+        //     method: 'POST',
+        //     body: JSON.stringify(review),
+        //     headers: {
+        //         'content-type': 'application/json'
+        //     }
+        // }).then(
+        //     addReview // ADD IT IN SERVICE WORKER on MAP
+        // ).then(
+        //     form.reset()
+        // ).then(
+        //     alert('Review sent')
+        // ).catch(
+        //     function(err) {
+        //         console.error(err);
+        //     }
+        // );
 
         function addReview() {
             let htmlContent = '';
@@ -127,5 +129,3 @@ function submitReview(reg) {  //This function is called on sw registration
             responseContainer.append(newReview);
         }
     });
-
-}

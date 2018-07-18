@@ -100,29 +100,14 @@
 
     <!-- Beginning scripts -->
 
-    <script type="text/javascript">
-        document.addEventListener('DOMContentLoaded', function(event) {
-            if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.register('sw.js').then(function(reg) {
-                    if ('sync' in reg) {
-                        submitReview(reg);
-                    }
-                }).catch(function(err) {
-                    console.error(err);
-                });
-            }
-        });
 
-        // navigator.serviceWorker.ready.then(function(swRegistration) {
-        //     return swRegistration.sync.register('myFirstSync');
-        // });
-    </script>
 
     <!-- Database helpers -->
     <script type="application/javascript" charset="utf-8" src="js/idb.js"></script>
     <script type="text/javascript" src="js/idbController.js"></script>
     <script type="application/javascript" charset="utf-8" src="js/manage-data.js"></script>
     <script type="application/javascript" charset="utf-8" src="js/manage-reviews.js"></script>
+    <script defer type="application/javascript" charset="utf-8" src="index.js"></script>
     <script type="text/javascript" src="js/dbhelper.js"></script>
     <!-- Main javascript file -->
     <script type="text/javascript" src="js/restaurant_info.js"></script>
@@ -157,8 +142,6 @@
         var godefer3 = document.getElementsByTagName('link')[0];
         godefer3.parentNode.insertBefore(giftofspeed3, godefer3);
     </script>
-
-
 
 </body>
 
