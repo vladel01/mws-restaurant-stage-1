@@ -10,6 +10,25 @@
     <title>Restaurant Info</title>
 
     <link rel="manifest" href="/manifest.json">
+
+
+    <script type="application/javascript" charset="utf-8" src="js/idb.js"></script>
+    <script type="application/javascript" charset="utf-8" src="js/idbController.js"></script>
+    <script type="application/javascript" charset="utf-8" src="js/manage-data.js"></script>
+    <script type="application/javascript" charset="utf-8" src="js/manage-reviews.js"></script>
+    <script defer type="application/javascript" charset="utf-8" src="index.js"></script>
+
+     <script>
+        /*! loadJS: load a JS file asynchronously. [c]2014 @scottjehl, Filament Group, Inc. (Based on http://goo.gl/REQGQ by Paul Irish). Licensed MIT */ ! function (e) {
+            var t = function (t, n) {
+                "use strict";
+                var o = e.document.getElementsByTagName("script")[0],
+                    r = e.document.createElement("script");
+                return r.src = t, r.async = !0, o.parentNode.insertBefore(r, o), n && "function" == typeof n && (r.onload = n), r
+            };
+            "undefined" != typeof module ? module.exports = t : e.loadJS = t
+        }("undefined" != typeof global ? global : this);
+    </script>
 </head>
 
 <body class="inside">
@@ -123,11 +142,8 @@
 
 
     <!-- Database helpers -->
-    <script type="application/javascript" charset="utf-8" src="js/idb.js"></script>
-    <script type="application/javascript" charset="utf-8" src="js/idbController.js"></script>
-    <script type="application/javascript" charset="utf-8" src="js/manage-data.js"></script>
-    <script type="application/javascript" charset="utf-8" src="js/manage-reviews.js"></script>
-    <script defer type="application/javascript" charset="utf-8" src="index.js"></script>
+
+
     <script type="text/javascript" src="js/dbhelper.js"></script>
     <!-- Main javascript file -->
     <script type="text/javascript" src="js/restaurant_info.js"></script>

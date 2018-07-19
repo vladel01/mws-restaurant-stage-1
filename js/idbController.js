@@ -48,7 +48,7 @@ function getReviewsOneRestaurant(id) {
 
 
 // Unused after Refactor
-var dbReviewsQueue = idb.open('OfflineReviews', 1, function(upgradeDB) {
+var dbReviewsQueue = idb.open('OfflineReviews', 2, function(upgradeDB) {
     upgradeDB.createObjectStore('PostponedReviews', { autoIncrement : true, keyPath: 'id' });
 });
 
@@ -62,7 +62,6 @@ function getAllPostponed() {
 function deletePostponed(key) {
     return dbReviewsQueue.then(function(db) {
         var tx = db.transaction('PostponedReviews', 'readwrite');
-        tx.objectStore('PostponedReviews').delete(key);
-        return tx.complete;
+        return tx.objectStore('PostponedReviews').delete(key);
     })
 }

@@ -125,3 +125,33 @@ function checkboxRating(checkbox) {
             responseContainer.append(newReview);
         }
     };
+
+
+//this is for test without sync
+// form.addEventListener('submit', event => {
+//     event.preventDefault()
+//
+//
+//
+//     submitReviews()
+//
+//     getAllPostponed().then(function(reviews) {
+//         return Promise.all(reviews.map(function(rev) {
+//             return fetch('http://localhost:1337/reviews/', {   // slack conversation use by rest id
+//                 method: 'POST',
+//                 body: JSON.stringify(rev),
+//                 headers: {
+//                     'content-type': 'application/json'
+//                 }
+//             }).then(function(response) {
+//                 return response.json();
+//             }).then(function() {
+//
+//                     deletePostponed(rev.id);
+//                     console.log('delete');
+//             })
+//         })
+//         )
+//     }).catch(function(err) { console.error(err); })
+//
+// })

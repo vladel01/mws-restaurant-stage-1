@@ -1,4 +1,7 @@
-var myCacheNames = 'mws-restaurant-v16';
+importScripts('js/idb.js');
+importScripts('js/idbController.js');
+
+var myCacheNames = 'mws-restaurant-v19';
 
 self.addEventListener('install', function(event) {
     event.waitUntil(
@@ -67,23 +70,23 @@ self.addEventListener('sync', function(event) {
   if (event.tag == 'PostponedReviews') {
     event.waitUntil(
         getAllPostponed().then(function(reviews) {
-            return Promise.all(reviews.map(function(review) {
+            return Promise.all(reviews.map(function(rev) {
                 return fetch('http://localhost:1337/reviews/', {
                     method: 'POST',
-                    body: JSON.stringify(review),
+                    body: JSON.stringify(rev),
                     headers: {
                         'content-type': 'application/json'
                     }
                 }).then(function(response) {
                     return response.json();
-                }).then(function(data) {
-                    if (data.result === 'success') {
-                        deletePostponed(review.id);
-                    }
+                }).then(function() {
+
+                        deletePostponed(rev.id);
+                        console.log('delete');
                 })
-            }).catch(function(err) { console.error(err); })
+            })
             )
-        })
+        }).catch(function(err) { console.error(err); })
 
         // conform discutie
         //here I must give action to get reviews from idb and re-post them

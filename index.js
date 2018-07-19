@@ -9,9 +9,9 @@ if ('serviceWorker' in navigator) {
 if (navigator.serviceWorker) {
     navigator.serviceWorker.ready
         .then(reg => {
-            const form = document.getElementById('newReview');
+            // const form = document.getElementById('newReview')
             form.addEventListener('submit', event => {
-                event.preventDefault();
+                event.preventDefault()
 
 
                 reg.sync.register('PostponedReviews')
@@ -24,11 +24,11 @@ if (navigator.serviceWorker) {
             })
         })
 } else {
-    //const form = document.getElementById('todoForm')
+    // const form = document.getElementById('newReview')
     form.addEventListener('submit', event => {
         event.preventDefault()
         console.log('Postponed revs not welcomed - test')
-        
+
         submitReviews()
     })
 }
