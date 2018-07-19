@@ -52,64 +52,17 @@ var dbReviewsQueue = idb.open('OfflineReviews', 1, function(upgradeDB) {
     upgradeDB.createObjectStore('PostponedReviews', { autoIncrement : true, keyPath: 'id' });
 });
 
-
-// var store = {
-//     db: null,
-//
-//     init: function() {
-//         if (store.db) { return Promise.resolve(store.db); }
-//         return idb.open('OfflineReviews', 1, function(upgradeDb) {
-//             upgradeDb.createObjectStore('PostponedReviews', { autoIncrement : true, keyPath: 'id' });
-//         }).then(function(db) {
-//             return store.db = db;
-//         });
-//     },
-//
-//     outbox: function(mode) {
-//         return store.init().then(function(db) {
-//             return db.transaction('PostponedReviews', mode).objectStore('PostponedReviews');
-//         })
-//     }
-// }
-
-
-//Shared actions for queue reviews
-var store = {
-  db: null,
-
-  init: function() {
-    if (store.db) { return Promise.resolve(store.db); }
-    return idb.open('messages', 2, function(upgradeDb) {
-      upgradeDb.createObjectStore('outbox', { autoIncrement : true, keyPath: 'id' });
-    }).then(function(db) {
-      return store.db = db;
-    });
-  },
-
-  outbox: function(mode) {
-    return store.init().then(function(db) {
-      return db.transaction('outbox', mode).objectStore('outbox');
+function getAllPostponed() {
+    return dbReviewsQueue.then(function(db) {
+        var tx = db.transaction('PostponedReviews')
+        return tx.objectStore('PostponedReviews').getAll();
     })
-  }
 }
 
-
-// aDD review to queue should be like this:
-//  var transaction = db.transaction(('reviewStore_' + restaurantId), 'readwrite');
-//  return transaction.objectStore('reviewStore_' + restaurantId).put(review, ('NewReview_' + restaurantId));
-
-
-// function addNewReviewToQueue(data) {
-//     dbReviews.then(function(db) {
-//         var tx = db.transaction('keyval', 'readwrite');
-//         var keyValStore = tx.objectStore('keyval');
-//         return keyValStore.put(data, 'reviews-queue');
-//     })
-// }
-// function getReviewsFromQueue() {
-//     return dbReviews.then(function(db) {
-//         var tx = db.transaction('keyval');
-//         var keyValStore = tx.objectStore('keyval');
-//         return keyValStore.get('reviews-queue');
-//     })
-// }
+function deletePostponed(key) {
+    return dbReviewsQueue.then(function(db) {
+        var tx = db.transaction('PostponedReviews', 'readwrite');
+        tx.objectStore('PostponedReviews').delete(key);
+        return tx.complete;
+    })
+}

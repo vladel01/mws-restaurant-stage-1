@@ -1,4 +1,4 @@
-var myCacheNames = 'mws-restaurant-v15';
+var myCacheNames = 'mws-restaurant-v16';
 
 self.addEventListener('install', function(event) {
     event.waitUntil(
@@ -63,18 +63,35 @@ self.addEventListener('message', function(event) {
 });
 
 
-// self.addEventListener('sync', function(event) {
-//   if (event.tag == 'myFirstSync') {
-//     event.waitUntil(
-//
-//
-//         // conform discutie
-//         //here I must give action to get reviews from idb and re-post them
-//
-//
-//     );
-//   }
-// });
+self.addEventListener('sync', function(event) {
+  if (event.tag == 'PostponedReviews') {
+    event.waitUntil(
+        getAllPostponed().then(function(reviews) {
+            return Promise.all(reviews.map(function(review) {
+                return fetch('http://localhost:1337/reviews/', {
+                    method: 'POST',
+                    body: JSON.stringify(review),
+                    headers: {
+                        'content-type': 'application/json'
+                    }
+                }).then(function(response) {
+                    return response.json();
+                }).then(function(data) {
+                    if (data.result === 'success') {
+                        deletePostponed(review.id);
+                    }
+                })
+            }).catch(function(err) { console.error(err); })
+            )
+        })
+
+        // conform discutie
+        //here I must give action to get reviews from idb and re-post them
+
+
+    );
+  }
+});
 
 
 // self.addEventListener('sync', function(event) {

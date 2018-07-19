@@ -63,6 +63,10 @@
     #restaurant-container .grid-column {
         width: 100%;
     }
+
+    #reviews-zones .grid-column {
+        width: 100%;
+    }
 }
 
 @media screen and (max-width: 650px) {

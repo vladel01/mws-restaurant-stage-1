@@ -63,21 +63,41 @@
                     </section>
                 </div>
                 <div class="grid-column">
-                    <form id="newReview" class="write-review" action="#">
-                        <input type="hidden" id="restID" value="" >
-                        <input type="text" id="username" placeholder="Username">
+                    <div class="form-wrapper">
+                        <h2>Write a review for this restaurant</h2>
+                        <form id="newReview" class="write-review" action="#">
+                            <input type="hidden" id="restID" value="" >
+                            <input type="text" id="username" placeholder="Your name">
 
-                        <div id="ratingValue">
-                            <input type="checkbox" name="rating" value="1" onclick="checkboxRating(this)">
-                            <input type="checkbox" name="rating" value="2" onclick="checkboxRating(this)">
-                            <input type="checkbox" name="rating" value="3" onclick="checkboxRating(this)">
-                            <input type="checkbox" name="rating" value="4" onclick="checkboxRating(this)">
-                            <input type="checkbox" name="rating" value="5" onclick="checkboxRating(this)">
-                        </div>
-                        <input type="hidden" id="ratingHaveValue" value="" >
-                        <textarea id="comment" placeholder="comment"></textarea>
-                        <input type="submit" value="submit">
-                    </form>
+                            <div id="ratingValue">
+                                <span>Select your rating value</span>
+                                <div class="rating-group">
+                                    <input type="checkbox" name="rating" value="1" onclick="checkboxRating(this)">
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <div class="rating-group">
+                                    <input type="checkbox" name="rating" value="2" onclick="checkboxRating(this)">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                </div>
+                                <div class="rating-group">
+                                    <input type="checkbox" name="rating" value="3" onclick="checkboxRating(this)">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                </div>
+                                <div class="rating-group">
+                                    <input type="checkbox" name="rating" value="4" onclick="checkboxRating(this)">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                </div>
+                                <div class="rating-group">
+                                    <input type="checkbox" name="rating" value="5" onclick="checkboxRating(this)">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                            <input type="hidden" id="ratingHaveValue" value="" >
+                            <textarea id="comment" placeholder="Leave your comment here"></textarea>
+                            <br/>
+                            <input id="submitForm" type="submit" value="submit" onclick="return formValidate()">
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -104,7 +124,7 @@
 
     <!-- Database helpers -->
     <script type="application/javascript" charset="utf-8" src="js/idb.js"></script>
-    <script type="text/javascript" src="js/idbController.js"></script>
+    <script type="application/javascript" charset="utf-8" src="js/idbController.js"></script>
     <script type="application/javascript" charset="utf-8" src="js/manage-data.js"></script>
     <script type="application/javascript" charset="utf-8" src="js/manage-reviews.js"></script>
     <script defer type="application/javascript" charset="utf-8" src="index.js"></script>

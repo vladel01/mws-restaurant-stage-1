@@ -1,6 +1,6 @@
 function getReviewsOfRestaurant(id) {
 
-    fetch('http://localhost:133/reviews/?restaurant_id=' + id, {
+    fetch('http://localhost:1337/reviews/?restaurant_id=' + id, {
         headers: {
             'Content-Type': 'application/json'
         }
@@ -14,13 +14,11 @@ function getReviewsOfRestaurant(id) {
             return response.json();
         }
 
-        console.log('face ceva? ar trebui nu');
         throw new Error('Network response was not ok, so load form idb');
 
     }).then(function(reviewsData) {
         fillReviewsHTML(reviewsData);
         addReviewsOneRestaurant(id, reviewsData);
-        console.log('ok?');
     }).catch(function(error) {
         console.log('There has been a problem with your fetch operation: ', error.message);
         console.log('nu uita sa pui 7 la 1337')
@@ -41,6 +39,17 @@ function checkboxRating(checkbox) {
     })
 }
 
+// function formValidate() {
+//     if ((nameField.value == '') || (ratingField.value == '') || (commentField.value == '')) {
+//         alert('Please fill all the fields and select your star rating');
+//         return false;
+//     }
+// }
+
+
+
+
+
 //function submitReview() {  //This function is called on sw registration
     const form = document.getElementById('newReview');
     let review;
@@ -58,16 +67,21 @@ function checkboxRating(checkbox) {
 
     let restaurantReviewVarKeeper;
 
+    function formValidate() {
+        if ((nameField.value == '') || (ratingField.value == '') || (commentField.value == '')) {
+            alert('Please fill all the fields and select your star rating');
+            return false;
+        }
+    }
 
-    //function submitReviews() {
-    form.addEventListener('submit', event => {
-        event.preventDefault()
+    function submitReviews() {   // this function is the submit result
         nameValue = nameField.value;
         ratingValue = ratingField.value;
         commentValue = commentField.value;
         restaurantId = restaurantInfo.value;
 
         var review = { restaurant_id: restaurantId, name: nameValue, rating: ratingValue, comments: commentValue };
+
 
         getReviewsOneRestaurant(restaurantId).then(function(cachedReviews) {
             var ar = cachedReviews;
@@ -92,24 +106,6 @@ function checkboxRating(checkbox) {
         });
 
 
-        // fetch('http://localhost:1337/reviews/', {
-        //     method: 'POST',
-        //     body: JSON.stringify(review),
-        //     headers: {
-        //         'content-type': 'application/json'
-        //     }
-        // }).then(
-        //     addReview // ADD IT IN SERVICE WORKER on MAP
-        // ).then(
-        //     form.reset()
-        // ).then(
-        //     alert('Review sent')
-        // ).catch(
-        //     function(err) {
-        //         console.error(err);
-        //     }
-        // );
-
         function addReview() {
             let htmlContent = '';
             const newReview = document.createElement('li');
@@ -128,4 +124,4 @@ function checkboxRating(checkbox) {
 
             responseContainer.append(newReview);
         }
-    });
+    };
