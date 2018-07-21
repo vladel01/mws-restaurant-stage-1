@@ -39,18 +39,8 @@ function checkboxRating(checkbox) {
     })
 }
 
-// function formValidate() {
-//     if ((nameField.value == '') || (ratingField.value == '') || (commentField.value == '')) {
-//         alert('Please fill all the fields and select your star rating');
-//         return false;
-//     }
-// }
 
 
-
-
-
-//function submitReview() {  //This function is called on sw registration
     const form = document.getElementById('newReview');
     let review;
     const nameField = document.getElementById('username');
@@ -74,39 +64,14 @@ function checkboxRating(checkbox) {
         }
     }
 
-    // function updateCachedDb(id, review) {
-    //     return getReviewsOneRestaurant(id).then(function(cachedReviews) {
-    //         // var ar = cachedReviews;
-    //         // restaurantReviewVarKeeper = ar.slice(0);
-    //         //
-    //         // restaurantReviewVarKeeper.push(review);
-    //         // addReviewsOneRestaurant(restaurantId, restaurantReviewVarKeeper);
-    //         if (cachedReviews == undefined) {
-    //             console.log('no cached reviews')
-    //             console.log(id)
-    //             console.log(review)
-    //         }
-    //         resolve(cachedReviews.push(review));
-    //         console.log(cachedReviews);
-    //         console.log(id);
-    //         console.log(review);
-    //         addReviewsOneRestaurant(id, cachedReviews);
-    //         //console.log(restaurantReviewVarKeeper);
-    //     });
-    // }
 
-
-
-    function submitReviews() {   // this function is the submit result
+    function submitReviews() {
         nameValue = nameField.value;
         ratingValue = ratingField.value;
         commentValue = commentField.value;
         restaurantId = restaurantInfo.value;
 
         var review = { restaurant_id: restaurantId, name: nameValue, rating: ratingValue, comments: commentValue };
-
-        //updateCachedDb(restaurantId, review);
-
 
         dbReviewsQueue.then(function(db) {
             var trs = db.transaction('PostponedReviews', 'readwrite');
@@ -118,7 +83,6 @@ function checkboxRating(checkbox) {
         ).catch(function(err) {
             // something went wrong with the database or the sync registration, log and submit the form
             console.error(err);
-            //form.submit();
         });
 
 
@@ -143,9 +107,7 @@ function checkboxRating(checkbox) {
 
 
             getReviewsOneRestaurant(restaurantId).then(function(cachedRevs) {
-                console.log(cachedRevs)
                 cachedRevs.push(review);
-                // resolve(cachedRevs);
                 console.log(cachedRevs)
 
                 addReviewsOneRestaurant(restaurantId, cachedRevs);
@@ -153,41 +115,9 @@ function checkboxRating(checkbox) {
 
     };
 
-
-//this is for test without sync
-// form.addEventListener('submit', event => {
-//     event.preventDefault()
-//
-//
-//
-//     submitReviews()
-//
-//     getAllPostponed().then(function(reviews) {
-//         return Promise.all(reviews.map(function(rev) {
-//             return fetch('http://localhost:1337/reviews/', {   // slack conversation use by rest id
-//                 method: 'POST',
-//                 body: JSON.stringify(rev),
-//                 headers: {
-//                     'content-type': 'application/json'
-//                 }
-//             }).then(function(response) {
-//                 return response.json();
-//             }).then(function() {
-//
-//                     deletePostponed(rev.id);
-//                     console.log('delete');
-//             })
-//         })
-//         )
-//     }).catch(function(err) { console.error(err); })
-//
-// })
-
-
 if (navigator.serviceWorker) {
     navigator.serviceWorker.ready
         .then(reg => {
-            // const form = document.getElementById('newReview')
             form.addEventListener('submit', event => {
                 event.preventDefault()
 
@@ -196,15 +126,11 @@ if (navigator.serviceWorker) {
                 reg.sync.register('PostponedReviews')
                 .then(() => {
                     console.log('Postponed revs are registered')
-                    // ASta merge fie ca e online fie ca e offline,
-                    // deci probabil ar trebui sa ma gandesc la reviewurile care intra si in postponed online
-                    //submitReviews()
                 })
             })
         })
 } else {
     // If no sw supported
-    // const form = document.getElementById('newReview')
     form.addEventListener('submit', event => {
         event.preventDefault()
         console.log('Postponed revs not welcomed - test')

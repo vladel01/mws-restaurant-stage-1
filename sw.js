@@ -3,7 +3,7 @@ importScripts('js/idbController.js');
 
 console.log('sevice worker present');
 
-var myCacheNames = 'mws-restaurant-v25';
+var myCacheNames = 'mws-restaurant-v28';
 
 self.addEventListener('install', function(event) {
     event.waitUntil(
@@ -14,7 +14,6 @@ self.addEventListener('install', function(event) {
                 'restaurant.html',
                 'css/styles.css',
                 'css/responsive.css',
-                'index.js',
                 'js/idb.js',
                 'js/idbController.js',
                 'js/dbhelper.js',
@@ -84,47 +83,11 @@ self.addEventListener('sync', function(event) {
                 }).then(function() {
 
                         deletePostponed(rev.id);
-                        console.log('Cached reviews when offline are now sent and deleted from queue');
+                        console.log('Your review has been submitted to the server. If any review was pending, it has also been sent');
                 })
             })
             )
         }).catch(function(err) { console.error(err); })
-
-        // conform discutie
-        //here I must give action to get reviews from idb and re-post them
-
-
     );
   }
 });
-
-
-// self.addEventListener('sync', function(event) {
-//     event.waitUntil(
-//         store.outbox('readonly').then(function(outbox) {
-//             return outbox.getAll();
-//         }).then(function(messages) {
-//             // send the messages
-//             return Promise.all(messages.map(function(message) {
-//                 return fetch('http://localhost:1337/reviews/', {
-//                   method: 'POST',
-//                   body: JSON.stringify(message),
-//                   headers: {
-//                     'Accept': 'application/json',
-//                     'X-Requested-With': 'XMLHttpRequest',
-//                     'Content-Type': 'application/json'
-//                   }
-//                 }).then(function(response) {
-//                   return response.json();
-//                 }).then(function(data) {
-//                   if (data.result === 'success') {
-//                     return store.outbox('readwrite').then(function(outbox) {
-//                       return outbox.delete(message);
-//                     });
-//                   }
-//                 })
-//             })
-//             )
-//         }).catch(function(err) { console.error(err); });
-//     );
-// });

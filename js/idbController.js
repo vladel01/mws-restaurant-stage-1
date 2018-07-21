@@ -24,12 +24,6 @@ function getRestaurantsIdb() {
 /**
     * Indexed DB actions for reviews of restaurants
     */
-// var keyID = [1,2,3,4,5,6,7,8,9,10];
-// var dbReviews = idb.open('RestaurantReviews', 3, function(upgradeDB) {
-//     for (let Rid of keyID) {
-//         upgradeDB.createObjectStore('reviewStore_' + Rid);
-//     }
-// });
 
 var dbReviews = idb.open('RestaurantReviews', 4, function(upgradeDB) {
     upgradeDB.createObjectStore('reviewStore');
@@ -52,8 +46,6 @@ function getReviewsOneRestaurant(id) {
     })
 }
 
-
-// Unused after Refactor
 var dbReviewsQueue = idb.open('OfflineReviews', 2, function(upgradeDB) {
     upgradeDB.createObjectStore('PostponedReviews', { autoIncrement : true, keyPath: 'id' });
 });
