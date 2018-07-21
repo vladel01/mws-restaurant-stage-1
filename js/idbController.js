@@ -24,25 +24,31 @@ function getRestaurantsIdb() {
 /**
     * Indexed DB actions for reviews of restaurants
     */
-var keyID = [1,2,3,4,5,6,7,8,9,10];
-var dbReviews = idb.open('RestaurantReviews', 3, function(upgradeDB) {
-    for (let Rid of keyID) {
-        upgradeDB.createObjectStore('reviewStore_' + Rid);
-    }
+// var keyID = [1,2,3,4,5,6,7,8,9,10];
+// var dbReviews = idb.open('RestaurantReviews', 3, function(upgradeDB) {
+//     for (let Rid of keyID) {
+//         upgradeDB.createObjectStore('reviewStore_' + Rid);
+//     }
+// });
+
+var dbReviews = idb.open('RestaurantReviews', 4, function(upgradeDB) {
+    upgradeDB.createObjectStore('reviewStore');
 });
 
 function addReviewsOneRestaurant(id, data) {
+    var restaurantNo = 'Restaurant_' + id;
     return dbReviews.then(function(db) {
-        var tr = db.transaction(('reviewStore_' + id), 'readwrite');
-        tr.objectStore('reviewStore_' + id).put(data, ('Restaurant_' + id));
+        var tr = db.transaction('reviewStore', 'readwrite');
+        tr.objectStore('reviewStore').put(data, restaurantNo);
         return tr.complete;
     })
 }
 
 function getReviewsOneRestaurant(id) {
+    var restaurantNo = 'Restaurant_' + id;
     return dbReviews.then(function(db) {
-        var tr = db.transaction('reviewStore_' + id);
-        return tr.objectStore('reviewStore_' + id).get('Restaurant_' + id);
+        var tr = db.transaction('reviewStore');
+        return tr.objectStore('reviewStore').get(restaurantNo);
     })
 }
 

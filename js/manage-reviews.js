@@ -142,20 +142,13 @@ function checkboxRating(checkbox) {
         }
 
 
-            var getExistent = new Promise(function(resolve, reject) {
-                dbReviews.then(function(db) {
-                    var tr = db.transaction(`reviewStore_${restaurantId}`);
-                    tr.objectStore(`reviewStore_${restaurantId}`).get(`Restaurant_${restaurantId}`);
-                    return tr.complete;
-                });
-            });
-
-            return getExistent.then(function(cachedRevs) {
-                return cachedRevs.push(review);
-                resolve(cachedRevs);
+            getReviewsOneRestaurant(restaurantId).then(function(cachedRevs) {
                 console.log(cachedRevs)
-            }).then(function(newCachedRevs) {
-                addReviewsOneRestaurant(restaurantId, newCachedRevs);
+                cachedRevs.push(review);
+                // resolve(cachedRevs);
+                console.log(cachedRevs)
+
+                addReviewsOneRestaurant(restaurantId, cachedRevs);
             });
 
     };
