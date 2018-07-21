@@ -1,7 +1,9 @@
 importScripts('js/idb.js');
 importScripts('js/idbController.js');
 
-var myCacheNames = 'mws-restaurant-v19';
+console.log('sevice worker present');
+
+var myCacheNames = 'mws-restaurant-v25';
 
 self.addEventListener('install', function(event) {
     event.waitUntil(
@@ -82,7 +84,7 @@ self.addEventListener('sync', function(event) {
                 }).then(function() {
 
                         deletePostponed(rev.id);
-                        console.log('delete');
+                        console.log('Cached reviews when offline are now sent and deleted from queue');
                 })
             })
             )

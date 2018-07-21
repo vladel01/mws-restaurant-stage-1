@@ -74,6 +74,29 @@ function checkboxRating(checkbox) {
         }
     }
 
+    // function updateCachedDb(id, review) {
+    //     return getReviewsOneRestaurant(id).then(function(cachedReviews) {
+    //         // var ar = cachedReviews;
+    //         // restaurantReviewVarKeeper = ar.slice(0);
+    //         //
+    //         // restaurantReviewVarKeeper.push(review);
+    //         // addReviewsOneRestaurant(restaurantId, restaurantReviewVarKeeper);
+    //         if (cachedReviews == undefined) {
+    //             console.log('no cached reviews')
+    //             console.log(id)
+    //             console.log(review)
+    //         }
+    //         resolve(cachedReviews.push(review));
+    //         console.log(cachedReviews);
+    //         console.log(id);
+    //         console.log(review);
+    //         addReviewsOneRestaurant(id, cachedReviews);
+    //         //console.log(restaurantReviewVarKeeper);
+    //     });
+    // }
+
+
+
     function submitReviews() {   // this function is the submit result
         nameValue = nameField.value;
         ratingValue = ratingField.value;
@@ -82,15 +105,8 @@ function checkboxRating(checkbox) {
 
         var review = { restaurant_id: restaurantId, name: nameValue, rating: ratingValue, comments: commentValue };
 
+        //updateCachedDb(restaurantId, review);
 
-        getReviewsOneRestaurant(restaurantId).then(function(cachedReviews) {
-            var ar = cachedReviews;
-            restaurantReviewVarKeeper = ar.slice(0);
-
-            restaurantReviewVarKeeper.push(review);
-            addReviewsOneRestaurant(restaurantId, restaurantReviewVarKeeper);
-            //console.log(restaurantReviewVarKeeper);
-        });
 
         dbReviewsQueue.then(function(db) {
             var trs = db.transaction('PostponedReviews', 'readwrite');
@@ -124,6 +140,24 @@ function checkboxRating(checkbox) {
 
             responseContainer.append(newReview);
         }
+
+
+            var getExistent = new Promise(function(resolve, reject) {
+                dbReviews.then(function(db) {
+                    var tr = db.transaction(`reviewStore_${restaurantId}`);
+                    tr.objectStore(`reviewStore_${restaurantId}`).get(`Restaurant_${restaurantId}`);
+                    return tr.complete;
+                });
+            });
+
+            return getExistent.then(function(cachedRevs) {
+                return cachedRevs.push(review);
+                resolve(cachedRevs);
+                console.log(cachedRevs)
+            }).then(function(newCachedRevs) {
+                addReviewsOneRestaurant(restaurantId, newCachedRevs);
+            });
+
     };
 
 
@@ -155,3 +189,33 @@ function checkboxRating(checkbox) {
 //     }).catch(function(err) { console.error(err); })
 //
 // })
+
+
+if (navigator.serviceWorker) {
+    navigator.serviceWorker.ready
+        .then(reg => {
+            // const form = document.getElementById('newReview')
+            form.addEventListener('submit', event => {
+                event.preventDefault()
+
+                submitReviews()
+
+                reg.sync.register('PostponedReviews')
+                .then(() => {
+                    console.log('Postponed revs are registered')
+                    // ASta merge fie ca e online fie ca e offline,
+                    // deci probabil ar trebui sa ma gandesc la reviewurile care intra si in postponed online
+                    //submitReviews()
+                })
+            })
+        })
+} else {
+    // If no sw supported
+    // const form = document.getElementById('newReview')
+    form.addEventListener('submit', event => {
+        event.preventDefault()
+        console.log('Postponed revs not welcomed - test')
+
+        submitReviews()
+    })
+}
