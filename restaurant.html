@@ -56,11 +56,17 @@
                 <div class="grid-column">
                     <p id="restaurant-cuisine"></p>
                     <a href="#restaurant-map" id="restaurant-address" class="load-map"></a>
-                    <span id="ShowMap">Show map</span>
+                    <span id="ShowMap">Go to the map</span>
 
                     <h3 class="restaurant-schedule">Opened hours</h3>
                     <p id="restaurant-short-schedule" tabindex="0" aria-hidden="false"></p>
                     <table id="restaurant-hours"></table>
+
+                    <div class="favorite-wrapper" id="favoriteTask">
+                        <input type="checkbox" aria-label="Set as favorite" id="favorite-checkbox" name="favorite-checkbox" />
+
+                        <label id="favCheckboxLabel" class="fav-checkbox" for="favorite-checkbox"></label>
+                    </div>
                 </div>
             </div>
         </section>
@@ -84,23 +90,23 @@
                             <div id="ratingValue">
                                 <span>Select your rating value</span>
                                 <div class="rating-group">
-                                    <input type="checkbox" name="rating" value="1" onclick="checkboxRating(this)">
+                                    <input type="checkbox" aria-label="one star" name="rating" value="1" onclick="checkboxRating(this)">
                                     <i class="fas fa-star"></i>
                                 </div>
                                 <div class="rating-group">
-                                    <input type="checkbox" name="rating" value="2" onclick="checkboxRating(this)">
+                                    <input type="checkbox" aria-label="two stars" name="rating" value="2" onclick="checkboxRating(this)">
                                     <i class="fas fa-star"></i><i class="fas fa-star"></i>
                                 </div>
                                 <div class="rating-group">
-                                    <input type="checkbox" name="rating" value="3" onclick="checkboxRating(this)">
+                                    <input type="checkbox" aria-label="three stars" name="rating" value="3" onclick="checkboxRating(this)">
                                     <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
                                 </div>
                                 <div class="rating-group">
-                                    <input type="checkbox" name="rating" value="4" onclick="checkboxRating(this)">
+                                    <input type="checkbox" aria-label="four stars" name="rating" value="4" onclick="checkboxRating(this)">
                                     <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
                                 </div>
                                 <div class="rating-group">
-                                    <input type="checkbox" name="rating" value="5" onclick="checkboxRating(this)">
+                                    <input type="checkbox" aria-label="five stars" name="rating" value="5" onclick="checkboxRating(this)">
                                     <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
                                 </div>
                             </div>
@@ -144,6 +150,7 @@
     <script type="application/javascript" charset="utf-8" src="js/idbController.js"></script>
     <script type="application/javascript" charset="utf-8" src="js/manage-data.js"></script>
     <script type="application/javascript" charset="utf-8" src="js/manage-reviews.js"></script>
+    <script type="application/javascript" charset="utf-8" src="js/manage-favorite.js"></script>
     <script type="text/javascript" src="js/dbhelper.js"></script>
     <!-- Main javascript file -->
     <script type="text/javascript" src="js/restaurant_info.js"></script>

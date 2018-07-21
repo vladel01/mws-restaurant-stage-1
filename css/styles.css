@@ -329,7 +329,7 @@ nav h1 a {
 
 #restaurant-address {
 	font-size: 1.2em;
-	margin: 10px 0px;
+	margin: 10px 0 0;
 	text-align: center;
 	display: block;
 	color: #333;
@@ -337,11 +337,23 @@ nav h1 a {
 
 #restaurant-address:hover,
 #restaurant-address:focus {
-	color: prange
+	color: orange;
 }
 
 #restaurant-address i {
 	margin-right: 10px;
+}
+
+#ShowMap {
+	display: block;
+	text-align: center;
+	font-size: 12px;
+	color: #999;
+	text-shadow: 0 0 1px rgba(0,0,0,0.5);
+}
+
+#ShowMap:hover {
+	cursor: default;
 }
 
 #restaurant-cuisine {
@@ -354,6 +366,59 @@ nav h1 a {
 	padding: 2px 0;
 	text-align: center;
 	text-transform: uppercase;
+}
+
+.favorite-wrapper {
+	margin: 15px 0;
+	text-align: center;
+}
+
+.favorite-wrapper input[type='checkbox'] {
+    display: none;
+}
+.favorite-wrapper label {
+	display: inline-block;
+    line-height: 30px;
+    padding-left: 40px;
+    margin: 10px 0;
+    cursor: pointer;
+    position: relative;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+	font-size: 14px;
+}
+.favorite-wrapper label:hover {
+	color: darkred;
+	vertical-align: middle;
+}
+.favorite-wrapper label:before {
+    position: absolute;
+    display: block;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    content: "\f004";
+	font-family: 'Font Awesome 5 Free';
+	font-size: 28px;
+	color: #999;
+    width: 30px;
+    height: 30px;
+	line-height: 30px;
+}
+
+.favorite-wrapper label:after {
+	content: "Add as your favorite";
+}
+.favorite-wrapper input[type='checkbox']:checked ~ label:after {
+	content: "This restaurant is one of your favorites";
+}
+.favorite-wrapper input[type='checkbox']:checked ~ label:before,
+.favorite-wrapper input[type='checkbox']:hover ~ label:before {
+    content: "\f004";
+    color: darkred;
+	font-weight: bold;
 }
 
 #restaurant-container {
@@ -403,8 +468,13 @@ nav h1 a {
 #restaurant-hours tr td {
 	padding: 2px 5px;
 }
+
 #restaurant-hours tr td:first-child {
 	padding-left: 0;
+}
+
+#restaurant-hours td {
+	color: #666;
 }
 
 #reviews-container h2,
@@ -445,6 +515,7 @@ nav h1 a {
 #reviews-list .star-rate i {
 	color: #f0f0f0;
 }
+
 #reviews-list .star-rate.color-1 i:first-child {
 	color: #f58500;
 }
@@ -473,10 +544,6 @@ nav h1 a {
 
 #reviews-list .review-comment {
 	font-style: italic;
-}
-
-#restaurant-hours td {
-	color: #666;
 }
 
 .form-wrapper {

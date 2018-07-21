@@ -105,6 +105,16 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
     cuisine.innerHTML = restaurant.cuisine_type;
     cuisine.setAttribute('aria-label', 'Cuisine ' + restaurant.cuisine_type);
 
+    const favoriteWrapper = document.getElementById('favoriteTask');
+    favoriteWrapper.setAttribute('data-id', restaurant.id);
+
+    const favoriteStat = document.getElementById('favorite-checkbox');
+    if (restaurant.is_favorite == 'true') {
+        favoriteStat.checked = true;
+    }else{
+        favoriteStat.checked = false;
+    }
+
     // fill operating hours
     if (restaurant.operating_hours) {
         fillRestaurantHoursHTML();
