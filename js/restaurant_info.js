@@ -109,9 +109,16 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
     favoriteWrapper.setAttribute('data-id', restaurant.id);
 
     const favoriteStat = document.getElementById('favorite-checkbox');
-    if (restaurant.is_favorite == 'true') {
+
+    if (restaurant.is_favorite == "true") {
+        JSON.parse(restaurant.is_favorite) === true;
+    } else if (restaurant.is_favorite == "false") {
+        JSON.parse(restaurant.is_favorite) === false;
+    }
+
+    if ((restaurant.is_favorite == true) || (restaurant.is_favorite == "true") || (restaurant.is_favorite === "true")){
         favoriteStat.checked = true;
-    }else{
+    }else if ((restaurant.is_favorite == false) || (restaurant.is_favorite == "false") || (restaurant.is_favorite === "false")) {
         favoriteStat.checked = false;
     }
 

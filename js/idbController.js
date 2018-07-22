@@ -1,7 +1,7 @@
 /**
     * Indexed DB actions for main restaurants data
     */
-var dbPromise = idb.open('restaurants-data', 4, function(upgradeDB) {
+var dbPromise = idb.open('restaurants-data', 5, function(upgradeDB) {
     var keyValStore = upgradeDB.createObjectStore('keyval');
 });
 
