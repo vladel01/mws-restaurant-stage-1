@@ -1,5 +1,5 @@
 function fetchingRestaurants(callback) {
-    fetch('http://localhost:1337/restaurants', {
+    return fetch('http://localhost:1337/restaurants', {
         headers: {
             'Content-Type': 'application/json'
         }

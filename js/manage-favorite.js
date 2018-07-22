@@ -34,8 +34,9 @@ function SetRestaurantAsFavorite(id) {
             return response.json();
         }
     }).then(function() {
-        console.log('setted as favorite')
+        console.log('Restaurant was removed from favorites')
         updateRestaurantsData()
+        console.log('Restaurants data indexedDB is updated')
     }).catch(err => {
         console.error('Failed to set as favorite', err);
         return null;
@@ -54,8 +55,9 @@ function UnsetSetRestaurantAsFavorite(id) {
             return response.json();
         }
     }).then(function() {
-        console.log('unsetted as favorite');
-        updateRestaurantsData
+        console.log('Restaurant was set as favorite')
+        updateRestaurantsData()
+        console.log('Restaurants data indexedDB is updated')
     }).then(
         //pune toate restaurantele in idb
     )

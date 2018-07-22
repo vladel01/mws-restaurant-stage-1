@@ -85,32 +85,36 @@
                         <h2>Write a review for this restaurant</h2>
                         <form id="newReview" class="write-review" action="#">
                             <input type="hidden" id="restID" value="" >
+
+                            <label for="username">Name</label>
                             <input type="text" id="username" placeholder="Your name">
 
                             <div id="ratingValue">
-                                <span>Select your rating value</span>
+                                <label id="ratingLabel">Select your rating value</label>
                                 <div class="rating-group">
-                                    <input type="checkbox" aria-label="one star" name="rating" value="1" onclick="checkboxRating(this)">
+                                    <input type="checkbox" aria-label="one star" name="rating" aria-describedby="ratingLabel" value="1" onclick="checkboxRating(this)">
                                     <i class="fas fa-star"></i>
                                 </div>
                                 <div class="rating-group">
-                                    <input type="checkbox" aria-label="two stars" name="rating" value="2" onclick="checkboxRating(this)">
+                                    <input type="checkbox" aria-label="two stars" name="rating" aria-describedby="ratingLabel" value="2" onclick="checkboxRating(this)">
                                     <i class="fas fa-star"></i><i class="fas fa-star"></i>
                                 </div>
                                 <div class="rating-group">
-                                    <input type="checkbox" aria-label="three stars" name="rating" value="3" onclick="checkboxRating(this)">
+                                    <input type="checkbox" aria-label="three stars" name="rating" aria-describedby="ratingLabel" value="3" onclick="checkboxRating(this)">
                                     <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
                                 </div>
                                 <div class="rating-group">
-                                    <input type="checkbox" aria-label="four stars" name="rating" value="4" onclick="checkboxRating(this)">
+                                    <input type="checkbox" aria-label="four stars" name="rating" aria-describedby="ratingLabel" value="4" onclick="checkboxRating(this)">
                                     <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
                                 </div>
                                 <div class="rating-group">
-                                    <input type="checkbox" aria-label="five stars" name="rating" value="5" onclick="checkboxRating(this)">
+                                    <input type="checkbox" aria-label="five stars" name="rating" aria-describedby="ratingLabel" value="5" onclick="checkboxRating(this)">
                                     <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
                                 </div>
                             </div>
                             <input type="hidden" id="ratingHaveValue" value="" >
+
+                            <label for="comment">Comment</label>
                             <textarea id="comment" placeholder="Leave your comment here"></textarea>
                             <br/>
                             <input id="submitForm" type="submit" value="submit" onclick="return formValidate()">
