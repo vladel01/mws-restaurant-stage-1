@@ -20,7 +20,7 @@ function fetchingRestaurants(callback) {
         console.log('Problem with your restaurant fetch operation: ', error.message);
         callback('errror', null);
         getRestaurantsIdb().then(function(cachedRestaurants) {
-            fillReviewsHTML(cachedRestaurants);
+            fillRestaurantHTML(cachedRestaurants);
         });
     });
 }

@@ -1,7 +1,7 @@
 /**
     * Indexed DB actions for main restaurants data
     */
-var dbPromise = idb.open('restaurants-data', 5, function(upgradeDB) {
+var dbPromise = idb.open('restaurants-data', 6, function(upgradeDB) {
     var keyValStore = upgradeDB.createObjectStore('keyval');
 });
 
@@ -25,7 +25,7 @@ function getRestaurantsIdb() {
     * Indexed DB actions for reviews of restaurants
     */
 
-var dbReviews = idb.open('RestaurantReviews', 4, function(upgradeDB) {
+var dbReviews = idb.open('RestaurantReviews', 5, function(upgradeDB) {
     upgradeDB.createObjectStore('reviewStore');
 });
 
@@ -33,8 +33,8 @@ function addReviewsOneRestaurant(id, data) {
     var restaurantNo = 'Restaurant_' + id;
     return dbReviews.then(function(db) {
         var tr = db.transaction('reviewStore', 'readwrite');
-        tr.objectStore('reviewStore').put(data, restaurantNo);
-        return tr.complete;
+        return tr.objectStore('reviewStore').put(data, restaurantNo);
+        //return tr.complete;
     })
 }
 
