@@ -146,11 +146,14 @@ createRestaurantHTML = (restaurant) => {
     const sourceMedium = document.createElement('source');
     sourceMedium.media = '(min-width: 400px)';
     sourceMedium.srcset = DBHelper.imageUrlForRestaurantMedium(restaurant);
+    //sourceMedium.setAttribute('data-srcset', (DBHelper.imageUrlForRestaurantMedium(restaurant)));
     picture.append(sourceMedium);
 
     const image = document.createElement('img');
-    image.src = DBHelper.imageUrlForRestaurant(restaurant);
+    //image.src = DBHelper.imageUrlForRestaurant(restaurant);
+    image.setAttribute('data-src', (DBHelper.imageUrlForRestaurant(restaurant)));
     image.alt = restaurant.name;
+    image.className = 'lazy';
     picture.append(image);
 
     const name = document.createElement('h1');
@@ -179,6 +182,7 @@ createRestaurantHTML = (restaurant) => {
  * Add markers for current restaurants to the map.
  */
 addMarkersToMap = (restaurants = self.restaurants) => {
+    let markerObjects = [];
     restaurants.forEach(restaurant => {
         // Add marker to the map
         const marker = DBHelper.mapMarkerForRestaurant(restaurant, self.map);
@@ -186,5 +190,27 @@ addMarkersToMap = (restaurants = self.restaurants) => {
             window.location.href = marker.url
         });
         self.markers.push(marker);
+        markerObjects.push(marker);
     });
+    console.log(markerObjects);
+}
+
+const swap_map = () => {
+    if (document.getElementById('map').style.display === 'none') {
+        document.getElementById('map').style.display = 'block'
+        document.getElementById('static_map').style.display = 'none'
+    }    
+}
+
+window.initMap = () => {
+    let loc = {
+        lat: 40.722216,
+        lng: -73.987501
+    };
+    self.map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 12,
+        center: loc,
+        scrollwheel: false
+    });
+    updateRestaurants();
 }

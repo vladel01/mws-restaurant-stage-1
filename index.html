@@ -23,8 +23,13 @@
     </header>
 
     <main id="maincontent" class="clearfix">
+        <!-- Mission+Chinese+Food,NY%7CEmily,NY%7CKang+Ho+Dong+Baekjeong,NY%7CKatz's+Delicatessen,NY%7CRoberta's+Pizza%7CHometown+Bbq,NY%7CSuperiority+Burger,NY%7CThe+Dutch,NY%7CMu+Ramen,NY%7CCasa+Enrique,NY -->
+
         <section id="map-container" role="contentinfo" aria-label="Restaurants map">
-            <div id="map" role="application" aria-hidden="true"></div>
+            <div class="static-map-container">
+                <img id="static_map" onclick="swap_map()" class="lazy" alt="Static map" data-src="https://maps.googleapis.com/maps/api/staticmap?size=1000x400&format=jpg&maptype=roadmap&markers=color:red%7CMission+Chinese+Food,NY%7CEmily,NY%7CKatz+Delicatessen,NY%7CRoberta+Pizza%7CHometown+Bbq,NY%7CSuperiority+Burger,NY%7CThe+Dutch,NY%7CMu+Ramen,NY%7CCasa+Enrique,NY&key=AIzaSyAwl-0LaWywwldcNEcGfP47rCbmWbo1OoA" />
+            </div>
+            <div id="map" role="application" aria-hidden="true" style="display: none;"></div>
         </section>
 
         <section role="contentinfo" aria-label="Restaurants">
@@ -52,12 +57,24 @@
         Copyright (c) 2017 <a href="/"><strong>Restaurant Reviews</strong></a> All Rights Reserved.
     </footer>
 
+    <!-- <img src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB7sOnBPE6R1zGtgxxplZuGwHumFlCQink&libraries=places&callback=initMap" alt=""> -->
+
+
+    <script type="text/javascript">
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.register('sw.js');
+        }
+    </script>
+
     <script type="application/javascript" charset="utf-8" src="js/idb.js"></script>
     <script type="application/javascript" charset="utf-8" src="js/idbController.js"></script>
     <script type="application/javascript" charset="utf-8" src="js/manage-data.js"></script>
     <script type="application/javascript" charset="utf-8" src="js/dbhelper.js"></script>
     <script type="application/javascript" charset="utf-8" src="js/main.js"></script>
+
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB7sOnBPE6R1zGtgxxplZuGwHumFlCQink&libraries=places&callback=initMap"></script>
+
+
 
     <script type="text/javascript">
         /* First CSS File */
@@ -77,12 +94,8 @@
         godefer2.parentNode.insertBefore(giftofspeed2, godefer2);
     </script>
 
-    <script type="text/javascript">
-        if ('serviceWorker' in navigator) {
-          navigator.serviceWorker.register('sw.js');
-        }
-    </script>
 
+    <script type="application/javascript" charset="utf-8" src="js/loadinglazy.js"></script>
 </body>
 
 </html>

@@ -125,7 +125,7 @@ if (navigator.serviceWorker) {
 
                 reg.sync.register('PostponedReviews')
                 .then(() => {
-                    console.log('Postponed revs are registered')
+                    console.log('Review submit was registered')
                 })
             })
         })

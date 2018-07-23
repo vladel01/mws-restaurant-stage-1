@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "idb": "^2.1.1",
-    "idb-keyval": "^3.0.3"
+    "idb-keyval": "^3.0.3",
+    "iolazyload": "^1.2.0"
   }
 }

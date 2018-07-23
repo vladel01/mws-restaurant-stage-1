@@ -3,7 +3,7 @@ importScripts('js/idbController.js');
 
 console.log('sevice worker present');
 
-var myCacheNames = 'mws-restaurant-v32';
+var myCacheNames = 'mws-restaurant-v37';
 
 self.addEventListener('install', function(event) {
     event.waitUntil(
@@ -14,18 +14,20 @@ self.addEventListener('install', function(event) {
                 'restaurant.html',
                 'css/styles.css',
                 'css/responsive.css',
+                'css/icons.css',
+                'css/font-icons/',
                 'js/idb.js',
                 'js/idbController.js',
                 'js/dbhelper.js',
                 'js/main.js',
                 'js/restaurant_info.js',
+                'js/loadinglazy.js',
                 'js/manage-data.js',
                 'js/manage-reviews.js',
                 'js/manage-favorite.js',
                 //'data/restaurants.json',
                 'manifest.json',
-                '/img/',
-                'https://use.fontawesome.com/releases/v5.0.9/css/all.css'
+                'img/'
             ]);
         })
     );

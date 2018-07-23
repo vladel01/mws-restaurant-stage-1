@@ -1,6 +1,6 @@
 let restaurant;
 var map;
-
+var mapScroll;
 /**
  * Initialize Google map, called from HTML.
  */
@@ -21,8 +21,10 @@ window.initMap = () => {
             //     DBHelper.mapMarkerForRestaurant(self.restaurant, self.map);
             // });
 
-            window.onscroll = function() {
+            var mapScroll = document.querySelector('.mapTrigger');
+            mapScroll.addEventListener('click', function() {
                 var mapContainer = document.getElementById('map');
+                mapContainer.style.display = "block";
 
                 if (document.body.scrollTop > (mapContainer.offsetTop - 400)) {
                     self.map = new google.maps.Map(document.getElementById('map'), {
@@ -33,7 +35,7 @@ window.initMap = () => {
 
                     DBHelper.mapMarkerForRestaurant(self.restaurant, self.map);
                 }
-            };
+            });
 
             fillBreadcrumb();
 
@@ -78,7 +80,7 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
     IdInput.setAttribute('value', self.restaurant.id);
 
     const address = document.getElementById('restaurant-address');
-    address.innerHTML = '<i class="fas fa-map-marker-alt"></i>' + restaurant.address;
+    address.innerHTML = '<i class="icon-location"></i>' + restaurant.address;
     address.setAttribute('role', 'contentinfo');
     address.setAttribute('aria-label', 'Address' + restaurant.address);
 
@@ -88,17 +90,22 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
     const sourceLarge = document.createElement('source');
     sourceLarge.media = '(min-width: 651px)';
     sourceLarge.srcset = DBHelper.imageUrlForRestaurantLarge(restaurant);
+    //sourceLarge.setAttribute('data-srcset', (DBHelper.imageUrlForRestaurantLarge(restaurant)));
     picture.append(sourceLarge);
 
     const sourceMedium = document.createElement('source');
     sourceMedium.media = '(min-width: 401px)';
     sourceMedium.srcset = DBHelper.imageUrlForRestaurantMedium(restaurant);
+    //sourceMedium.setAttribute('data-srcset', (DBHelper.imageUrlForRestaurantMedium(restaurant)));
     picture.append(sourceMedium);
 
     const image = document.createElement('img');
-    image.src = DBHelper.imageUrlForRestaurant(restaurant);
-    image.srcset = DBHelper.imageUrlForRestaurant2x(restaurant);
+    //image.src = DBHelper.imageUrlForRestaurant(restaurant);
+    image.setAttribute('data-src', (DBHelper.imageUrlForRestaurant(restaurant)));
+    //image.srcset = DBHelper.imageUrlForRestaurant2x(restaurant);
+    //image.setAttribute('data-srcset', (DBHelper.imageUrlForRestaurant2x(restaurant)));
     image.alt = restaurant.name;
+    image.className = 'lazy';
     picture.append(image);
 
     const cuisine = document.getElementById('restaurant-cuisine');
@@ -208,7 +215,7 @@ createReviewHTML = (review) => {
     ratingStars.classList.add('star-rate');
     ratingStars.setAttribute('aria-label', review.rating + ' stars');
     ratingStars.classList.add(ratingStarsClass);
-    ratingStars.innerHTML = '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>';
+    ratingStars.innerHTML = '<i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i>';
 
     rating.innerHTML = '<strong>Rating: </strong>';
     rating.appendChild(ratingStars);
