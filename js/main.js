@@ -139,21 +139,15 @@ createRestaurantHTML = (restaurant) => {
     const li = document.createElement('li');
     li.setAttribute('tabindex', '0');
 
-    const picture = document.createElement('picture');
+    const picture = document.createElement('div');
     picture.className = 'restaurant-img';
     li.append(picture);
 
-    const sourceMedium = document.createElement('source');
-    sourceMedium.media = '(min-width: 400px)';
-    sourceMedium.srcset = DBHelper.imageUrlForRestaurantMedium(restaurant);
-    //sourceMedium.setAttribute('data-srcset', (DBHelper.imageUrlForRestaurantMedium(restaurant)));
-    picture.append(sourceMedium);
-
     const image = document.createElement('img');
-    //image.src = DBHelper.imageUrlForRestaurant(restaurant);
-    image.setAttribute('data-src', (DBHelper.imageUrlForRestaurant(restaurant)));
+
+    image.setAttribute('data-srcset', (DBHelper.imageUrlForRestaurant(restaurant)));
     image.alt = restaurant.name;
-    image.className = 'lazy';
+    image.className = 'lazyload';
     picture.append(image);
 
     const name = document.createElement('h1');
@@ -182,7 +176,6 @@ createRestaurantHTML = (restaurant) => {
  * Add markers for current restaurants to the map.
  */
 addMarkersToMap = (restaurants = self.restaurants) => {
-    let markerObjects = [];
     restaurants.forEach(restaurant => {
         // Add marker to the map
         const marker = DBHelper.mapMarkerForRestaurant(restaurant, self.map);
@@ -190,16 +183,14 @@ addMarkersToMap = (restaurants = self.restaurants) => {
             window.location.href = marker.url
         });
         self.markers.push(marker);
-        markerObjects.push(marker);
     });
-    console.log(markerObjects);
 }
 
 const swap_map = () => {
     if (document.getElementById('map').style.display === 'none') {
         document.getElementById('map').style.display = 'block'
         document.getElementById('static_map').style.display = 'none'
-    }    
+    }
 }
 
 window.initMap = () => {

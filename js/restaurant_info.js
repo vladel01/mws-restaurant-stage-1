@@ -87,25 +87,13 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
     const picture = document.getElementById('restaurant-img');
     picture.className = 'restaurant-img';
 
-    const sourceLarge = document.createElement('source');
-    sourceLarge.media = '(min-width: 651px)';
-    sourceLarge.srcset = DBHelper.imageUrlForRestaurantLarge(restaurant);
-    //sourceLarge.setAttribute('data-srcset', (DBHelper.imageUrlForRestaurantLarge(restaurant)));
-    picture.append(sourceLarge);
-
-    const sourceMedium = document.createElement('source');
-    sourceMedium.media = '(min-width: 401px)';
-    sourceMedium.srcset = DBHelper.imageUrlForRestaurantMedium(restaurant);
-    //sourceMedium.setAttribute('data-srcset', (DBHelper.imageUrlForRestaurantMedium(restaurant)));
-    picture.append(sourceMedium);
-
     const image = document.createElement('img');
     //image.src = DBHelper.imageUrlForRestaurant(restaurant);
     image.setAttribute('data-src', (DBHelper.imageUrlForRestaurant(restaurant)));
     //image.srcset = DBHelper.imageUrlForRestaurant2x(restaurant);
-    //image.setAttribute('data-srcset', (DBHelper.imageUrlForRestaurant2x(restaurant)));
+    image.setAttribute('data-srcset', (DBHelper.imageUrlForRestaurantMediumWPort(restaurant)));
     image.alt = restaurant.name;
-    image.className = 'lazy';
+    image.className = 'lazyload';
     picture.append(image);
 
     const cuisine = document.getElementById('restaurant-cuisine');

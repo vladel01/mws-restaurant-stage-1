@@ -21,7 +21,7 @@ self.addEventListener('install', function(event) {
                 'js/dbhelper.js',
                 'js/main.js',
                 'js/restaurant_info.js',
-                'js/loadinglazy.js',
+                'js/lazyLoadImages.min.js',
                 'js/manage-data.js',
                 'js/manage-reviews.js',
                 'js/manage-favorite.js',

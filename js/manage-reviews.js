@@ -95,7 +95,7 @@ function checkboxRating(checkbox) {
             htmlContent = '<p><strong>Author: </strong>' + nameValue + '</p>' +
                             '<p><strong>Rating: </strong>' +
                             '<span class="star-rate color-' + ratingValue + '" aria-label="' + ratingValue + ' stars">' +
-                                '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>' +
+                                '<i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i>' +
                             '</span>' +
                            '</p>' +
                            '<p class="review-comment">' + commentValue + '</p>';

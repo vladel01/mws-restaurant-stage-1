@@ -145,7 +145,11 @@ class DBHelper {
         return (`/img/` + DBHelper.nameReplace(restaurant) + `-400_small_2x.jpg 2x`);
     }
     static imageUrlForRestaurantMedium(restaurant) {
-        return (`/img/` + DBHelper.nameReplace(restaurant) + `-650_medium.jpg, /img/` + DBHelper.nameReplace(restaurant) + `-650_medium_2x.jpg 2x`);
+        return (`/img/` + DBHelper.nameReplace(restaurant) + `-650_medium.jpg`);
+    }
+    static imageUrlForRestaurantMediumWPort(restaurant) {
+        return ('/img/' + DBHelper.nameReplace(restaurant) + '-400_small.jpg 400w, /img/' + DBHelper.nameReplace(restaurant) + '-650_medium.jpg');
+        //return (`/img/` + DBHelper.nameReplace(restaurant) + `-650_medium.jpg`);
     }
     static imageUrlForRestaurantLarge(restaurant) {
         return (`/img/` + DBHelper.nameReplace(restaurant) + `-800_large.jpg, /img/` + DBHelper.nameReplace(restaurant) + `-800_large_2x.jpg 2x`);

@@ -27,7 +27,7 @@
 
         <section id="map-container" role="contentinfo" aria-label="Restaurants map">
             <div class="static-map-container">
-                <img id="static_map" onclick="swap_map()" class="lazy" alt="Static map" data-src="https://maps.googleapis.com/maps/api/staticmap?size=1000x400&format=jpg&maptype=roadmap&markers=color:red%7CMission+Chinese+Food,NY%7CEmily,NY%7CKatz+Delicatessen,NY%7CRoberta+Pizza%7CHometown+Bbq,NY%7CSuperiority+Burger,NY%7CThe+Dutch,NY%7CMu+Ramen,NY%7CCasa+Enrique,NY&key=AIzaSyAwl-0LaWywwldcNEcGfP47rCbmWbo1OoA" />
+                <img id="static_map" onclick="swap_map()" class="lazyload" alt="Static map" data-src="https://maps.googleapis.com/maps/api/staticmap?size=1000x400&format=jpg&maptype=roadmap&markers=color:red%7CMission+Chinese+Food,NY%7CEmily,NY%7CKatz+Delicatessen,NY%7CRoberta+Pizza%7CHometown+Bbq,NY%7CSuperiority+Burger,NY%7CThe+Dutch,NY%7CMu+Ramen,NY%7CCasa+Enrique,NY&key=AIzaSyAwl-0LaWywwldcNEcGfP47rCbmWbo1OoA" />
             </div>
             <div id="map" role="application" aria-hidden="true" style="display: none;"></div>
         </section>
@@ -95,7 +95,7 @@
     </script>
 
 
-    <script type="application/javascript" charset="utf-8" src="js/loadinglazy.js"></script>
+    <script async type="application/javascript" charset="utf-8" src="js/lazyLoadImages.min.js"></script>
 </body>
 
 </html>

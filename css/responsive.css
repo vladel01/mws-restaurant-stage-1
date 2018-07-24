@@ -85,6 +85,12 @@
         margin-right: 0;
     }
 
-
-
+    /* Restaurant page */
+    .static-map-container {
+        min-height: 400px;
+    }
+    #static_map {
+        max-width: none;
+        height: 100%;
+    }
 }
