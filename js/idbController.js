@@ -38,12 +38,11 @@ function addReviewsOneRestaurant(id, data) {
     })
 }
 
-function getReviewsOneRestaurant(id) {
+function getReviewsFromLocal(id) {
     var restaurantNo = 'Restaurant_' + id;
     return dbReviews.then(function(db) {
         var tr = db.transaction('reviewStore');
-        var objectGot = tr.objectStore('reviewStore').get(restaurantNo);
-        return objectGot.complete;
+        return tr.objectStore('reviewStore').get(restaurantNo);
     })
 }
 

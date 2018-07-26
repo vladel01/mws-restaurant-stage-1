@@ -10,17 +10,6 @@ window.initMap = () => {
             console.error(error);
         } else {
 
-            // document.querySelector('.load-map').addEventListener('click', function() {
-            //
-            //     self.map = new google.maps.Map(document.getElementById('map'), {
-            //         zoom: 16,
-            //         center: restaurant.latlng,
-            //         scrollwheel: false
-            //     });
-            //
-            //     DBHelper.mapMarkerForRestaurant(self.restaurant, self.map);
-            // });
-
             var mapScroll = document.querySelector('.mapTrigger');
             mapScroll.addEventListener('click', function() {
                 var mapContainer = document.getElementById('map');
@@ -63,12 +52,18 @@ fetchRestaurantFromURL = (callback) => {
             return;
         }
 
-        // aici fetch restaurant()
         fillRestaurantHTML(restaurant);
 
         callback(null, restaurant)  // this is the data of the review gotten used in the fetchRestaurantFromURL
 
-        getReviewsOfRestaurant(restaurant.id);
+        if (navigator.onLine) {
+            getReviewsOfRestaurant(restaurant.id);
+        } else {
+            getReviewsFromLocal(restaurant.id).then(function(cachedRevs) {
+                console.log('local stored reviews are displyed');
+                fillReviewsHTML(cachedRevs);
+            });
+        }
 
         console.log(restaurant);
     });
@@ -130,12 +125,8 @@ fillRestaurantHTML = (restaurant) => {
     if (restaurant.operating_hours) {
         fillRestaurantHoursHTML();
     }
-    // fill reviews
+
     //fillReviewsHTML();
-
-    // Aici trebuie sa rezolvi.
-    // getReviewsOfRestaurant(restaurant.id);
-
 
     const hoursH3 = document.getElementById('restaurant-short-schedule');
     if (restaurant.operating_hours.Saturday == restaurant.operating_hours.Sunday) {
@@ -172,7 +163,6 @@ fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hours) => 
  * Create all reviews HTML and add them to the webpage.
  */
 // fillReviewsHTML = (reviews = self.restaurant.reviews) => {
-    //Vezi aici. Ca mai sus era initial si ai modificat...... Poate poti face acel self.restauant.reviews sa fie jsonul cu reviewurile restaurantului din idb-ul de reviewuri
 
 fillReviewsHTML = (reviews) => {
     const container = document.getElementById('reviews-container');

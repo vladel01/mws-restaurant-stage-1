@@ -17,14 +17,8 @@ function getReviewsOfRestaurant(id) {
             });
         }
 
-        // throw new Error('Network response was not ok, so load form idb');
-
     }).catch(function(error) {
         console.log('There has been a problem with your fetch operation: ', error.message);
-        console.log('nu uita sa pui 7 la 1337')
-        getReviewsOneRestaurant(id).then(function(cachedReviews) {
-            fillReviewsHTML(cachedReviews);
-        });
     });
 }
 
@@ -105,17 +99,6 @@ function checkboxRating(checkbox) {
 
             responseContainer.prepend(newReview);
         }
-
-
-            // getReviewsOneRestaurant(restaurantId).then(function(cachedRevs) {
-            //     cachedRevs.push(review);
-            //     console.log(cachedRevs)
-            //
-            //     addReviewsOneRestaurant(restaurantId, cachedRevs);
-            // });
-            // Decided not to use it anymore.
-            //Why add it to local db now as online if the page already update reviews idb when refresh or reenter?
-            //Maybe offline?
 
     };
 
