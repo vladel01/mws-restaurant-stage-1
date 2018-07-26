@@ -550,6 +550,22 @@ nav h1 a {
 	font-style: italic;
 }
 
+#temp-msg {
+	text-align: center;
+	padding: 5px;
+	display: block;
+}
+#temp-msg.sent {
+	background: #5ff15f;
+
+}
+#temp-msg.notsent-msg {
+	background: pink;
+}
+#temp-msg.notsent-msg.got-sent {
+	background: #5ff15f;
+}
+
 .form-wrapper {
 	padding-top: 30px;
 	border-top: 1px solid #fff;

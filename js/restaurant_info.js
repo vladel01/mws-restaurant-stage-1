@@ -268,5 +268,6 @@ window.addEventListener('online', function(e) {
     setTimeout(
         function() {
             offlineMsg.innerHTML = "Review landed to our server";
-        },4000);    
+            offlineMsg.classList.add('got-sent');
+        },4000);
 });
