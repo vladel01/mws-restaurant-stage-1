@@ -11,14 +11,14 @@ function getReviewsOfRestaurant(id) {
         }
 
         if(response.ok) {
-            return response.json();
+            return response.json().then(function(responseData) {
+                fillReviewsHTML(responseData);
+                addReviewsOneRestaurant(id, responseData);
+            });
         }
 
-        throw new Error('Network response was not ok, so load form idb');
+        // throw new Error('Network response was not ok, so load form idb');
 
-    }).then(function(reviewsData) {
-        fillReviewsHTML(reviewsData);
-        addReviewsOneRestaurant(id, reviewsData);
     }).catch(function(error) {
         console.log('There has been a problem with your fetch operation: ', error.message);
         console.log('nu uita sa pui 7 la 1337')

@@ -1,4 +1,4 @@
-function fetchingRestaurants(callback) {
+function fetchingRestaurantsFromServer() {
     return fetch('http://localhost:1337/restaurants', {
         headers: {
             'Content-Type': 'application/json'
@@ -15,12 +15,12 @@ function fetchingRestaurants(callback) {
 
     }).then(function(restaurantData) {
         addRestaurantsIdb(restaurantData);
-        return callback(null, restaurantData);
     }).catch(function(error) {
         console.log('Problem with your restaurant fetch operation: ', error.message);
-        callback('errror', null);
-        getRestaurantsIdb().then(function(cachedRestaurants) {
-            return callback(null, cachedRestaurants);
-        });
+        // callback('errror', null);
+        // getRestaurantsIdb().then(function(cachedRestaurants) {
+        //     console.log('No network')
+        //     return callback(null, cachedRestaurants);
+        // });
     });
 }

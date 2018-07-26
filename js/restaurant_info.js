@@ -62,22 +62,31 @@ fetchRestaurantFromURL = (callback) => {
             console.error(error);
             return;
         }
-        fillRestaurantHTML();
-        callback(null, restaurant)
+
+        // aici fetch restaurant()
+        fillRestaurantHTML(restaurant);
+
+        callback(null, restaurant)  // this is the data of the review gotten used in the fetchRestaurantFromURL
+
+        getReviewsOfRestaurant(restaurant.id);
+
+        console.log(restaurant);
     });
+
+
   }
 }
 
 /**
  * Create restaurant HTML and add it to the webpage
  */
-fillRestaurantHTML = (restaurant = self.restaurant) => {
+fillRestaurantHTML = (restaurant) => {
     const name = document.getElementById('restaurant-name');
     name.innerHTML = restaurant.name;
     name.setAttribute('role', 'heading');
 
     const IdInput = document.getElementById('restID');
-    IdInput.setAttribute('value', self.restaurant.id);
+    IdInput.setAttribute('value', restaurant.id);
 
     const address = document.getElementById('restaurant-address');
     address.innerHTML = '<i class="icon-location"></i>' + restaurant.address;
@@ -123,7 +132,10 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
     }
     // fill reviews
     //fillReviewsHTML();
-    getReviewsOfRestaurant(self.restaurant.id);
+
+    // Aici trebuie sa rezolvi.
+    // getReviewsOfRestaurant(restaurant.id);
+
 
     const hoursH3 = document.getElementById('restaurant-short-schedule');
     if (restaurant.operating_hours.Saturday == restaurant.operating_hours.Sunday) {
@@ -159,6 +171,9 @@ fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hours) => 
 /**
  * Create all reviews HTML and add them to the webpage.
  */
+// fillReviewsHTML = (reviews = self.restaurant.reviews) => {
+    //Vezi aici. Ca mai sus era initial si ai modificat...... Poate poti face acel self.restauant.reviews sa fie jsonul cu reviewurile restaurantului din idb-ul de reviewuri
+
 fillReviewsHTML = (reviews) => {
     const container = document.getElementById('reviews-container');
     const title = document.createElement('h2');

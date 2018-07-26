@@ -4,12 +4,33 @@
 
 class DBHelper {
 
+    static get DATABASE_URL() {
+        const port = 1337
+        return `http://localhost:${port}`;
+    }
+
     /**
         * Fetch all restaurants.
         */
 
     static fetchRestaurants(callback) {
-        fetchingRestaurants(callback);
+        // fetchingRestaurants();
+
+        //AICI FA CEVA CA AI DE 3 ori in console mesajul no network
+
+        //fetch doar din idb
+
+
+        getRestaurantsIdb().then(cachedRestaurants => {
+            if (!cachedRestaurants) {
+                fetchingRestaurantsFromServer().then(response => {
+                    return callback(null, response);
+                });
+            } else {
+                console.log('Entered from local db');
+                return callback(null, cachedRestaurants);
+            }
+        });
     }
 
     /**

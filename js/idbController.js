@@ -33,8 +33,8 @@ function addReviewsOneRestaurant(id, data) {
     var restaurantNo = 'Restaurant_' + id;
     return dbReviews.then(function(db) {
         var tr = db.transaction('reviewStore', 'readwrite');
-        return tr.objectStore('reviewStore').put(data, restaurantNo);
-        //return tr.complete;
+        var objectAdded = tr.objectStore('reviewStore').put(data, restaurantNo);
+        return objectAdded.complete;
     })
 }
 
@@ -42,7 +42,8 @@ function getReviewsOneRestaurant(id) {
     var restaurantNo = 'Restaurant_' + id;
     return dbReviews.then(function(db) {
         var tr = db.transaction('reviewStore');
-        return tr.objectStore('reviewStore').get(restaurantNo);
+        var objectGot = tr.objectStore('reviewStore').get(restaurantNo);
+        return objectGot.complete;
     })
 }
 
