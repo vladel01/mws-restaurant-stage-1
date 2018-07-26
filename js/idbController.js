@@ -55,7 +55,7 @@ function getAllPostponed() {
     return dbReviewsQueue.then(function(db) {
         var tx = db.transaction('PostponedReviews')
         return tx.objectStore('PostponedReviews').getAll();
-    })
+    });
 }
 
 function deletePostponed(key) {

@@ -260,3 +260,13 @@ getParameterByName = (name, url) => {
         return '';
     return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
+
+
+window.addEventListener('online', function(e) {
+    // console.log('online');
+    const offlineMsg = document.querySelector('.notsent-msg');
+    setTimeout(
+        function() {
+            offlineMsg.innerHTML = "Review landed to our server";
+        },4000);    
+});

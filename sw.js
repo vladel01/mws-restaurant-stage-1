@@ -3,7 +3,7 @@ importScripts('js/idbController.js');
 
 console.log('sevice worker present');
 
-var myCacheNames = 'mws-restaurant-v37';
+var myCacheNames = 'mws-restaurant-v45';
 
 self.addEventListener('install', function(event) {
     event.waitUntil(
@@ -85,8 +85,8 @@ self.addEventListener('sync', function(event) {
                     return response.json();
                 }).then(function() {
 
-                        deletePostponed(rev.id);
-                        console.log('Your review has been submitted to the server. If any review was pending, it has also been sent');
+                    deletePostponed(rev.id);
+                    console.log('Your review has been submitted to the server. If any review was pending, it has also been sent');
                 })
             })
             )

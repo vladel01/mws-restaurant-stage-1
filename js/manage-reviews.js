@@ -98,7 +98,8 @@ function checkboxRating(checkbox) {
                                 '<i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i>' +
                             '</span>' +
                            '</p>' +
-                           '<p class="review-comment">' + commentValue + '</p>';
+                           '<p class="review-comment">' + commentValue + '</p>' +
+                           '<span id="temp-msg"></span>';
 
             newReview.innerHTML = htmlContent;
 
@@ -106,12 +107,15 @@ function checkboxRating(checkbox) {
         }
 
 
-            getReviewsOneRestaurant(restaurantId).then(function(cachedRevs) {
-                cachedRevs.push(review);
-                console.log(cachedRevs)
-
-                addReviewsOneRestaurant(restaurantId, cachedRevs);
-            });
+            // getReviewsOneRestaurant(restaurantId).then(function(cachedRevs) {
+            //     cachedRevs.push(review);
+            //     console.log(cachedRevs)
+            //
+            //     addReviewsOneRestaurant(restaurantId, cachedRevs);
+            // });
+            // Decided not to use it anymore.
+            //Why add it to local db now as online if the page already update reviews idb when refresh or reenter?
+            //Maybe offline?
 
     };
 
@@ -126,6 +130,15 @@ if (navigator.serviceWorker) {
                 reg.sync.register('PostponedReviews')
                 .then(() => {
                     console.log('Review submit was registered')
+
+                    const newRevWrapper = document.getElementById('temp-msg');
+                    if (navigator.onLine) {
+                        newRevWrapper.className = 'sent';
+                        newRevWrapper.innerHTML = 'Review was sent';
+                    }else{
+                        newRevWrapper.className = 'notsent-msg';
+                        newRevWrapper.innerHTML = 'Review is wainting for the newtork reconnection. When network is ready, your review will be submitted';
+                    }
                 })
             })
         })
