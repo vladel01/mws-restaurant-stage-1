@@ -103,7 +103,7 @@ function checkboxRating(checkbox) {
 
             newReview.innerHTML = htmlContent;
 
-            responseContainer.append(newReview);
+            responseContainer.prepend(newReview);
         }
 
 

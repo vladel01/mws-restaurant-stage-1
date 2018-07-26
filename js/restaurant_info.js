@@ -190,7 +190,8 @@ fillReviewsHTML = (reviews) => {
     ul.setAttribute('role', 'list');
     ul.setAttribute('aria-label', title.innerHTML);
     reviews.forEach(review => {
-        ul.appendChild(createReviewHTML(review));
+        // ul.appendChild(createReviewHTML(review));
+        ul.insertBefore(createReviewHTML(review), ul.firstChild);
     });
     container.appendChild(ul);
 }
