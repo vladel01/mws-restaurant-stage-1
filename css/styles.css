@@ -108,17 +108,18 @@ section {
 }
 
 /* ====================== Navigation ====================== */
-nav {
+.header {
 	padding-top: 20px;
 	background-color: #252831;
 	text-align:center;
 }
 
-nav h1 {
+.header h1 {
 	margin: 0 auto 20px;
+	font-size: 20px;
 }
 
-nav h1 a {
+.header h1 a {
 	color: #fff;
 	font-weight: 200;
 	letter-spacing: 10px;
