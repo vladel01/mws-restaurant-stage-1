@@ -34,33 +34,6 @@ initMap = () => {
         }
     });
 }
-// window.initMap = () => {
-//     fetchRestaurantFromURL((error, restaurant) => {
-//         if (error) { // Got an error!
-//             console.error(error);
-//         } else {
-//
-//             var mapScroll = document.querySelector('.mapTrigger');
-//             mapScroll.addEventListener('click', function() {
-//                 var mapContainer = document.getElementById('map');
-//                 mapContainer.style.display = "block";
-//
-//                 if (document.body.scrollTop > (mapContainer.offsetTop - 400)) {
-//                     self.map = new google.maps.Map(document.getElementById('map'), {
-//                         zoom: 16,
-//                         center: restaurant.latlng,
-//                         scrollwheel: false
-//                     });
-//
-//                     DBHelper.mapMarkerForRestaurant(self.restaurant, self.map);
-//                 }
-//             });
-//
-//             fillBreadcrumb();
-//
-//         }
-//     });
-// }
 
 /**
  * Get current restaurant from page URL.
@@ -196,7 +169,7 @@ fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hours) => 
 
 fillReviewsHTML = (reviews) => {
     const container = document.getElementById('reviews-container');
-    const title = document.createElement('h2');
+    const title = document.createElement('h3');
     title.innerHTML = 'Reviews';
     container.appendChild(title);
 

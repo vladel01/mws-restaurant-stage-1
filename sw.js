@@ -3,7 +3,7 @@ importScripts('js/idbController.js');
 
 console.log('sevice worker present');
 
-var myCacheNames = 'mws-restaurant-v52';
+var myCacheNames = 'mws-restaurant-v53';
 
 self.addEventListener('install', function(event) {
     event.waitUntil(
