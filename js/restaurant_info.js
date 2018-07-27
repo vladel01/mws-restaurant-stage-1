@@ -129,8 +129,6 @@ fillRestaurantHTML = (restaurant) => {
         fillRestaurantHoursHTML();
     }
 
-    //fillReviewsHTML();
-
     const hoursH3 = document.getElementById('restaurant-short-schedule');
     if (restaurant.operating_hours.Saturday == restaurant.operating_hours.Sunday) {
         hoursH3.innerHTML = 'Opening times on Weekdays ' + restaurant.operating_hours.Monday + ' and on Weekends ' + restaurant.operating_hours.Saturday;
@@ -165,7 +163,6 @@ fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hours) => 
 /**
  * Create all reviews HTML and add them to the webpage.
  */
-// fillReviewsHTML = (reviews = self.restaurant.reviews) => {
 
 fillReviewsHTML = (reviews) => {
     const container = document.getElementById('reviews-container');
@@ -183,7 +180,7 @@ fillReviewsHTML = (reviews) => {
     ul.setAttribute('role', 'list');
     ul.setAttribute('aria-label', title.innerHTML);
     reviews.forEach(review => {
-        // ul.appendChild(createReviewHTML(review));
+
         ul.insertBefore(createReviewHTML(review), ul.firstChild);
     });
     container.appendChild(ul);
@@ -200,10 +197,6 @@ createReviewHTML = (review) => {
     const name = document.createElement('p');
     name.innerHTML = '<strong>Author: </strong>' + review.name;
     li.appendChild(name);
-
-    // const date = document.createElement('p');
-    // date.innerHTML = '<strong>Date: </strong>' + review.date;
-    // li.appendChild(date);
 
     const rating = document.createElement('p');
 

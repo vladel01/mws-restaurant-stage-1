@@ -163,7 +163,6 @@ class DBHelper {
     }
     static imageUrlForRestaurantMediumWPort(restaurant) {
         return ('/img/' + DBHelper.nameReplace(restaurant) + '-400_small.jpg 400w, /img/' + DBHelper.nameReplace(restaurant) + '-650_medium.jpg');
-        //return (`/img/` + DBHelper.nameReplace(restaurant) + `-650_medium.jpg`);
     }
     static imageUrlForRestaurantLarge(restaurant) {
         return (`/img/` + DBHelper.nameReplace(restaurant) + `-800_large.jpg, /img/` + DBHelper.nameReplace(restaurant) + `-800_large_2x.jpg 2x`);
