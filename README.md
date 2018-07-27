@@ -37,6 +37,6 @@ Using IDB, the response from the server is cached. Within manage-data.js, there 
 ### Note about css files
 The css files are loaded using script for defer load CSS - reference: https://www.giftofspeed.com/defer-loading-css/
 
-
-
-Static api :AIzaSyAwl-0LaWywwldcNEcGfP47rCbmWbo1OoA
+### Note
+Google maps was replaced by the Leaflet with Mapbox as suggested and instructed on forums
+Source: https://github.com/udacity/mws-restaurant-stage-1

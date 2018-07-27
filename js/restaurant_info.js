@@ -1,36 +1,66 @@
 let restaurant;
-var map;
+var newMap;
 var mapScroll;
 /**
- * Initialize Google map, called from HTML.
+ * Initialize Leaflet map, called from HTML.
  */
-window.initMap = () => {
+document.addEventListener('DOMContentLoaded', (event) => {
+  initMap();
+});
+ /**
+ * Initialize leaflet map
+ */
+initMap = () => {
     fetchRestaurantFromURL((error, restaurant) => {
         if (error) { // Got an error!
             console.error(error);
         } else {
-
-            var mapScroll = document.querySelector('.mapTrigger');
-            mapScroll.addEventListener('click', function() {
-                var mapContainer = document.getElementById('map');
-                mapContainer.style.display = "block";
-
-                if (document.body.scrollTop > (mapContainer.offsetTop - 400)) {
-                    self.map = new google.maps.Map(document.getElementById('map'), {
-                        zoom: 16,
-                        center: restaurant.latlng,
-                        scrollwheel: false
-                    });
-
-                    DBHelper.mapMarkerForRestaurant(self.restaurant, self.map);
-                }
+            self.newMap = L.map('map', {
+                center: [restaurant.latlng.lat, restaurant.latlng.lng],
+                zoom: 16,
+                scrollWheelZoom: false
             });
+            L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.jpg70?access_token={mapboxToken}', {
+                mapboxToken: 'pk.eyJ1IjoidmxhZGVsIiwiYSI6ImNqazRkc2ZxazFjdHMzcm1sZGw5cHhjY3EifQ.ehGI_QvTOYUKcF7IHDq58A',
+                maxZoom: 18,
+                attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+                    '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+                    'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+                id: 'mapbox.streets'
+            }).addTo(newMap);
 
             fillBreadcrumb();
-
+            DBHelper.mapMarkerForRestaurant(self.restaurant, self.newMap);
         }
     });
 }
+// window.initMap = () => {
+//     fetchRestaurantFromURL((error, restaurant) => {
+//         if (error) { // Got an error!
+//             console.error(error);
+//         } else {
+//
+//             var mapScroll = document.querySelector('.mapTrigger');
+//             mapScroll.addEventListener('click', function() {
+//                 var mapContainer = document.getElementById('map');
+//                 mapContainer.style.display = "block";
+//
+//                 if (document.body.scrollTop > (mapContainer.offsetTop - 400)) {
+//                     self.map = new google.maps.Map(document.getElementById('map'), {
+//                         zoom: 16,
+//                         center: restaurant.latlng,
+//                         scrollwheel: false
+//                     });
+//
+//                     DBHelper.mapMarkerForRestaurant(self.restaurant, self.map);
+//                 }
+//             });
+//
+//             fillBreadcrumb();
+//
+//         }
+//     });
+// }
 
 /**
  * Get current restaurant from page URL.

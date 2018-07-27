@@ -14,20 +14,13 @@ class DBHelper {
         */
 
     static fetchRestaurants(callback) {
-        // fetchingRestaurants();
-
-        //AICI FA CEVA CA AI DE 3 ori in console mesajul no network
-
-        //fetch doar din idb
-
-
         getRestaurantsIdb().then(cachedRestaurants => {
             if (!cachedRestaurants) {
                 fetchingRestaurantsFromServer().then(response => {
                     return callback(null, response);
                 });
             } else {
-                console.log('Entered from local db');
+                //console.log('Entered from local db');
                 return callback(null, cachedRestaurants);
             }
         });
@@ -179,15 +172,25 @@ class DBHelper {
     /**
         * Map marker for a restaurant.
     */
+    // static mapMarkerForRestaurant(restaurant, map) {
+    //     const marker = new google.maps.Marker({
+    //         position: restaurant.latlng,
+    //         title: restaurant.name,
+    //         url: DBHelper.urlForRestaurant(restaurant),
+    //         map: map,
+    //         animation: google.maps.Animation.DROP}
+    //     );
+    //     return marker;
+    // }
     static mapMarkerForRestaurant(restaurant, map) {
-        const marker = new google.maps.Marker({
-            position: restaurant.latlng,
-            title: restaurant.name,
-            url: DBHelper.urlForRestaurant(restaurant),
-            map: map,
-            animation: google.maps.Animation.DROP}
-        );
+        const marker = new L.marker([restaurant.latlng.lat, restaurant.latlng.lng],
+            {
+                title: restaurant.name,
+                alt: restaurant.name,
+                url: DBHelper.urlForRestaurant(restaurant)
+            }
+        )
+        marker.addTo(newMap);
         return marker;
     }
-
 }

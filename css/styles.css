@@ -172,19 +172,6 @@ nav h1 a {
 /* ====================== Map ====================== */
 #map {
 	height: 400px;
-	width: 100%;
-	background-color: #ccc;
-}
-
-.static-map-container {
-	text-align: center;
-	overflow: hidden;
-	text-align: center;
-}
-
-#static_map {
-	height: 100%;
-	max-width: none;
 }
 
 /* ====================== Restaurant Filtering ====================== */
