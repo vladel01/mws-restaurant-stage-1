@@ -1,22 +1,25 @@
 importScripts('js/idb.js');
 importScripts('js/idbController.js');
 
-console.log('sevice worker present');
 
-var myCacheNames = 'mws-restaurant-v54';
+// NOTE: activate and fetch events are created after the model from webinar "MWS Webinar Stage 3", https://www.youtube.com/watch?v=XbCwxeCqxw4&feature=youtu.be
+
+const RUNTIME = 'runtime';
+
+const PRECACHE = 'mws-restaurant-v71';
 
 self.addEventListener('install', function(event) {
     event.waitUntil(
-        caches.open(myCacheNames).then(function(cache) {
-            return cache.addAll([
-                '/',
+        caches.open(PRECACHE).then(function(cache) {
+            cache.addAll([
+                //'/',
                 'index.html',
-                'restaurant.html',
+                //'restaurant.html',
                 'css/styles.css',
                 'css/responsive.css',
                 'css/icons.css',
                 'css/font-icons/',
-                'js/idb.js',
+                //'js/idb.js',
                 'js/idbController.js',
                 'js/dbhelper.js',
                 'js/main.js',
@@ -26,41 +29,67 @@ self.addEventListener('install', function(event) {
                 'js/manage-reviews.js',
                 'js/manage-favorite.js',
                 //'data/restaurants.json',
-                'manifest.json',
-                'img/'
+                //'manifest.json',
+                //'img/'
             ]);
         })
     );
 });
 
+var expectedCaches = [
+  'mws-restaurant-v69',
+  'mws-rest-data'
+];
+
 
 self.addEventListener('activate', function(event) {
+    console.log('Active sw');
+    const currentCaches = [PRECACHE, RUNTIME];
     event.waitUntil(
-        caches.keys().then(function(cacheNames) {
-            return Promise.all(
-                cacheNames.filter(function(cacheName) {
-                    return cacheName.startsWith('mws-') &&
-                        cacheName != myCacheNames;
-                }).map(function(cacheName) {
-                    return caches.delete(cacheName);
-                })
-            );
-        })
+        caches.keys().then(cachesNames => {
+            return cachesNames.filter(cacheName => !currentCaches.includes(cacheName));
+        }).then(cachesToDelete => {
+            return Promise.all(cachesToDelete.map(cachesToDelete => {
+                return caches.delete(cachesToDelete);
+            }));
+        }).then(() => self.clients.claim())
     );
 });
 
-// The following solution for fetch, is inspired from https://jakearchibald.com/2014/offline-cookbook/
+// self.addEventListener('fetch', function(event) {
+//     event.respondWith(
+//         caches.open('mws-rest-data').then(function(cache) {
+//             return cache.match(event.request).then(function(response) {
+//                 var fetchPromise = fetch(event.request).then(function(networkResponse) {
+//                     cache.put(event.request, networkResponse.clone());
+//                     return networkResponse;
+//                 })
+//                 return response || fetchPromise;
+//             })
+//         })
+//     );
+// });
+
 self.addEventListener('fetch', function(event) {
-    event.respondWith(
-        caches.open(myCacheNames).then(function(cache) {
-            return cache.match(event.request).then(function(response) {
-                return response || fetch(event.request).then(function(response) {
-                    //cache.put(event.request, response.clone());
-                    return response;
+    const storageUrl = event.request.url.split(/[?#]/)[0];
+
+    if (storageUrl.startsWith(self.location.origin)) {
+        event.respondWith(
+            caches.match(storageUrl).then(cachedResponse => {
+                if (cachedResponse) {
+                    return cachedResponse;
+                }
+
+                return caches.open(RUNTIME).then(cache => {
+                    return fetch(event.request).then(response => {
+                        return cache.put(storageUrl, response.clone()).then(() => {
+                            return response;
+                        });
+                    });
                 });
-            });
-        })
-    );
+            })
+        );
+    }
 });
 
 self.addEventListener('message', function(event) {
@@ -72,7 +101,11 @@ self.addEventListener('message', function(event) {
 
 self.addEventListener('sync', function(event) {
   if (event.tag == 'PostponedReviews') {
+
+    console.log('correct tag to make the action');
+
     event.waitUntil(
+        
         getAllPostponed().then(function(reviews) {
             return Promise.all(reviews.map(function(rev) {
                 return fetch('http://localhost:1337/reviews/', {
@@ -91,6 +124,7 @@ self.addEventListener('sync', function(event) {
             })
             )
         }).catch(function(err) { console.error(err); })
+
     );
   }
 });
