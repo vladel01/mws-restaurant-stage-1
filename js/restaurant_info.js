@@ -252,9 +252,14 @@ getParameterByName = (name, url) => {
 window.addEventListener('online', function(e) {
     // console.log('online');
     const offlineMsg = document.querySelector('.notsent-msg');
-    setTimeout(
-        function() {
-            offlineMsg.innerHTML = "Review landed to our server";
-            offlineMsg.classList.add('got-sent');
-        },4000);
+
+    if (!offlineMsg) {
+        return false;
+    } else {
+        setTimeout(
+            function() {
+                offlineMsg.innerHTML = "Review landed to our server";
+                offlineMsg.classList.add('got-sent');
+            },4000);
+        }    
 });

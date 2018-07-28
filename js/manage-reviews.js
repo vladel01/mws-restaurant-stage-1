@@ -67,17 +67,37 @@ function checkboxRating(checkbox) {
 
         var review = { restaurant_id: restaurantId, name: nameValue, rating: ratingValue, comments: commentValue };
 
-        dbReviewsQueue.then(function(db) {
-            var trs = db.transaction('PostponedReviews', 'readwrite');
-            return trs.objectStore('PostponedReviews').put(review);
-        }).then(
-            addReview()
-        ).then(
-            form.reset()
-        ).catch(function(err) {
-            // something went wrong with the database or the sync registration, log and submit the form
-            console.error(err);
-        });
+
+        /**
+            * Post review to the server or sent it to the local db.
+            */
+        if (navigator.onLine) {
+            fetch('http://localhost:1337/reviews/', {
+                method: 'POST',
+                body: JSON.stringify(review),
+                headers: {
+                    'content-type': 'application/json'
+                }
+            }).then(function(response) {
+                return response.json();
+
+                if (response.ok) {
+                    console.log('Your review has been submitted');
+                }
+            }).catch(() => console.log('something went wrong with the sending'))
+        } else {
+            dbReviewsQueue.then(function(db) {
+                var trs = db.transaction('PostponedReviews', 'readwrite');
+                return trs.objectStore('PostponedReviews').put(review);
+            });
+        }
+
+        /**
+            * Adding HTML of review and reset form.
+            */
+        addReview();
+
+        form.reset();
 
 
         function addReview() {
@@ -102,35 +122,51 @@ function checkboxRating(checkbox) {
 
     };
 
-if (navigator.serviceWorker) {
-    navigator.serviceWorker.ready
-        .then(reg => {
-            form.addEventListener('submit', event => {
-                event.preventDefault()
 
-                submitReviews()
+/**
+    * Event on submitting the form.
+    */
+form.addEventListener('submit', event => {
+    event.preventDefault()
 
-                reg.sync.register('PostponedReviews')
-                .then(() => {
-                    console.log('Review submit was registered')
+    submitReviews();
 
-                    const newRevWrapper = document.getElementById('temp-msg');
-                    if (navigator.onLine) {
-                        newRevWrapper.className = 'sent';
-                        newRevWrapper.innerHTML = 'Review was sent';
-                    }else{
-                        newRevWrapper.className = 'notsent-msg';
-                        newRevWrapper.innerHTML = 'Review is wainting for the newtork reconnection. When network is ready, your review will be submitted';
+    const newRevWrapper = document.getElementById('temp-msg');
+    if (navigator.onLine) {
+        newRevWrapper.className = 'sent';
+        newRevWrapper.innerHTML = 'Review was sent';
+    }else{
+        newRevWrapper.className = 'notsent-msg';
+        newRevWrapper.innerHTML = 'Review is wainting for the newtork reconnection. When network is ready, your review will be submitted';
+    }
+});
+
+
+/**
+    * Action taken when the network is back on and if we got pending reviews in local storage.
+    */
+window.addEventListener('online', function(e) {
+    if (!dbReviewsQueue) {
+        return false;
+    } else {
+        getAllPostponed().then(function(reviews) {
+            return Promise.all(reviews.map(function(rev) {
+                return fetch('http://localhost:1337/reviews/', {
+                    method: 'POST',
+                    body: JSON.stringify(rev),
+                    headers: {
+                        'content-type': 'application/json'
                     }
+                }).then(function(response) {
+                    return response.json();
+                }).then(function() {
+
+                    deletePostponed(rev.id);
+                    console.log('Your review has been submitted to the server. If any review was pending, it has also been sent');
                 })
             })
-        })
-} else {
-    // If no sw supported
-    form.addEventListener('submit', event => {
-        event.preventDefault()
-        console.log('Postponed revs not welcomed - test')
+            )
+        }).catch(function(err) { console.error(err); })
+    }
 
-        submitReviews()
-    })
-}
+});
