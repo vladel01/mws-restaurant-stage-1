@@ -1,6 +1,7 @@
 # Mobile Web Specialist Certification Course
 ---
 #### _Three Stage Course Material Project - Restaurant Reviews_
+#### _Udacity and Google Nanodegree_
 
 ## Project Overview
 
