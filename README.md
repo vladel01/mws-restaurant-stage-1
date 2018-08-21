@@ -2,41 +2,25 @@
 ---
 #### _Three Stage Course Material Project - Restaurant Reviews_
 
-## Project Overview: Stage 1
+## Project Overview
 
-For the **Restaurant Reviews** projects, you will incrementally convert a static webpage to a mobile-ready web application. In **Stage One**, you will take a static design that lacks accessibility and convert the design to be responsive on different sized displays and accessible for screen reader use. You will also add a service worker to begin the process of creating a seamless offline experience for your users.
+For the **Restaurant Reviews** project, I was incrementally convert a static webpage to a mobile-ready web application.
 
-### Specification
+In **Stage One**, a static design that lacks accessibility was took and convert the design to be responsive on different sized displays and accessible for screen reader use. Also was needed to add a service worker to begin the process of creating a seamless offline experience for users.
 
-You have been provided the code for a restaurant reviews website. The code has a lot of issues. It’s barely usable on a desktop browser, much less a mobile device. It also doesn’t include any standard accessibility features, and it doesn’t work offline at all. Your job is to update the code to resolve these issues while still maintaining the included functionality.
+ In **Stage Two**, the responsive, accessible design built in Stage One was connected to an external server. Asynchronous JavaScript to request JSON data from the server was added. It had to store data received from the server in an offline database using IndexedDB, which will create an app shell architecture. Finally, some work was needed to optimize site to meet performance benchmarks, which it was tested using Lighthouse.
 
-### What do I do from here?
+ In **Stage Three**, in the connected application built in Stage One and Stage Two, additional functionality was added. A form to allow users to create their own reviews was added. If the app is offline, the form will defer updating to the remote database until a connection is established. Finally, more work to optimize the site to meet even stricter performance (>90) benchmarks than the previous project, and test again using Lighthouse was neede.
 
-1. In this folder, start up a simple HTTP server to serve up the site files on your local computer. Python has some simple tools to do this, and you don't even need to know Python. For most people, it's already installed on your computer.
-
-In a terminal, check the version of Python you have: `python -V`. If you have Python 2.x, spin up the server with `python -m SimpleHTTPServer 8000` (or some other port, if port 8000 is already in use.) For Python 3.x, you can use `python3 -m http.server 8000`. If you don't have Python installed, navigate to Python's [website](https://www.python.org/) to download and install the software.
-
-2. With your server running, visit the site: `http://localhost:8000`, and look around for a bit to see what the current experience looks like.
-3. Explore the provided code, and make start making a plan to implement the required features in three areas: responsive design, accessibility and offline use.
-4. Write code to implement the updates to get this site on its way to being a mobile-ready website.
-
-### Note about ES6
-
-Most of the code in this project has been written to the ES6 JavaScript specification for compatibility with modern web browsers and future proofing JavaScript code. As much as possible, try to maintain use of ES6 in any additional JavaScript you write.
-
-
-
-
-Instructions:
+### Installation:
+- install NodeJS with npm
+- install the dependencies: npm install
 - Grunt is used for its responsive images plugin.
-- responsive.css contains style for elements by different media queries
-- font size is set on body in styles.css, for desktop and it will be reset for different media queries within responsive.css
+- In a terminal, check the version of Python you have: `python -V`. If you have Python 2.x, spin up the server with `python -m SimpleHTTPServer 8000` (or some other port, if port 8000 is already in use.) For Python 3.x, you can use `python3 -m http.server 8000`. If you don't have Python installed, navigate to Python's [website](https://www.python.org/) to download and install the software.
+- The Local Development API Server is located on: https://github.com/vladel01/mws-restaurant-stage-3 - use instructions to set it up.
+- Launch the app in browser. Chrome is recommended because most of the code in this project has been written to the ES6 JavaScript and no compiler was used. Also, Fetch API and other technologies unsupported by all the browsers were used.
 
-Using IDB, the response from the server is cached. Within manage-data.js, there are the functions used to create the indexedDB and to fetch the restaurants.
 
-### Note about css files
-The css files are loaded using script for defer load CSS - reference: https://www.giftofspeed.com/defer-loading-css/
-
-### Note
-Google maps was replaced by the Leaflet with Mapbox as suggested and instructed on forums
-Source: https://github.com/udacity/mws-restaurant-stage-1
+### Testing:
+After visiting a restaurant from the list, you can disable network connectivity to test offline side of the app.
+You can submit reviews by filling the form within restaurant page and after you enable network you can observe the review being sent to the server.
